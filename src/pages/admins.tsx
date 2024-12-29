@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { fetchAdmins } from "../utils/fetchAdmins";
+import { useRouter } from "next/router";
 
 const AdminListPage = () => {
   const [admins, setAdmins] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     const getAdmins = async () => {
@@ -32,7 +34,11 @@ const AdminListPage = () => {
       </p>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
         {admins.map((admin, index) => (
-          <div key={index} className="flex flex-col items-center">
+          <div
+            key={index}
+            className="flex flex-col items-center cursor-pointer"
+            onClick={() => router.push(`/admin/${admin.steamid}`)}
+          >
             <img
               src={admin.avatarfull}
               alt={`${admin.personaname} avatar`}
@@ -41,14 +47,6 @@ const AdminListPage = () => {
             <h3 className="mt-4 text-sm font-medium text-gray-700">
               {admin.personaname}
             </h3>
-            <a
-              href={admin.profileurl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-500 text-sm underline"
-            >
-              View Profile
-            </a>
           </div>
         ))}
       </div>
