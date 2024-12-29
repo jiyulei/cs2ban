@@ -1,0 +1,990 @@
+{
+  "76561198872990459": {
+    "enemyTeamSteam64Ids": [
+      "76561198140600937",
+      "76561198180035958",
+      "76561198332578739",
+      "76561198828776766",
+      "76561199478010617"
+    ],
+    "isCompletedLongMatch": false,
+    "ownTeamSteam64Ids": [
+      "76561198138382382",
+      "76561198166300107",
+      "76561198872990459",
+      "76561198964903928",
+      "76561199469067160"
+    ],
+    "ownTeamTotalLeetifyRatingRounds": {
+      "76561198138382382": 29,
+      "76561198166300107": 29,
+      "76561198872990459": 29,
+      "76561198964903928": 28,
+      "76561199469067160": 7
+    },
+    "ownTeamTotalLeetifyRatings": {
+      "76561198138382382": -0.0085,
+      "76561198166300107": 0.0272,
+      "76561198872990459": 0.095,
+      "76561198964903928": 0.017,
+      "76561199469067160": 0.1028
+    },
+    "ctLeetifyRating": 0.1721,
+    "ctLeetifyRatingRounds": 14,
+    "dataSource": "matchmaking",
+    "elo": null,
+    "gameFinishedAt": "2024-12-28T07:38:26.000Z",
+    "gameId": "11a3a0bf-1f95-4d41-9b82-7b649ed8098d",
+    "isCs2": true,
+    "mapName": "de_mirage",
+    "matchResult": "loss",
+    "rankType": 11,
+    "scores": [
+      14,
+      15
+    ],
+    "skillLevel": 1650,
+    "tLeetifyRating": 0.0124,
+    "tLeetifyRatingRounds": 15,
+    "deaths": 19,
+    "hasBannedPlayer": false,
+    "kills": 24,
+    "partySize": 2
+  },
+  "76561199162068315": {
+    "enemyTeamSteam64Ids": [
+      "8993839073290473",
+      "234334344204295",
+      "901279656470534",
+      "700335522263749",
+      "632555256017491"
+    ],
+    "isCompletedLongMatch": false,
+    "ownTeamSteam64Ids": [
+      "1972428385365578",
+      "1810975133265968",
+      "1774029754706005",
+      "7841651004621714",
+      "2673780823888914"
+    ],
+    "ownTeamTotalLeetifyRatingRounds": {
+      "76561199162068315": 18,
+      "e21f17523e282998-9264": 18,
+      "e21f17523e282998-1322": 5,
+      "e21f17523e282998-9696": 18,
+      "e21f17523e282998-3599": 18
+    },
+    "ownTeamTotalLeetifyRatings": {
+      "76561199162068315": 0.061,
+      "e21f17523e282998-9264": 0.1805,
+      "e21f17523e282998-1322": 0.0781,
+      "e21f17523e282998-9696": 0.0279,
+      "e21f17523e282998-3599": 0.0191
+    },
+    "ctLeetifyRating": 0.0954,
+    "ctLeetifyRatingRounds": 12,
+    "dataSource": "matchmaking",
+    "elo": null,
+    "gameFinishedAt": "2024-12-17T00:00:00.000Z",
+    "gameId": "e21f17523e282998-c5778a",
+    "isCs2": true,
+    "mapName": "de_inferno",
+    "matchResult": "loss",
+    "rankType": 11,
+    "scores": [
+      12,
+      6
+    ],
+    "skillLevel": 1163,
+    "tLeetifyRating": 0.0438,
+    "tLeetifyRatingRounds": 6,
+    "deaths": 8,
+    "hasBannedPlayer": false,
+    "kills": 14,
+    "partySize": 3
+  },
+  "76561198166300107": {
+    "enemyTeamSteam64Ids": [
+      "4393836706343847",
+      "774218216412257",
+      "6061588975943480",
+      "2289688951711725",
+      "8024266090610841"
+    ],
+    "isCompletedLongMatch": false,
+    "ownTeamSteam64Ids": [
+      "8306120181770362",
+      "6127230643698212",
+      "2767729304593581",
+      "7501706672436035",
+      "3469883968633671"
+    ],
+    "ownTeamTotalLeetifyRatingRounds": {
+      "76561198166300107": 29,
+      "f1bf2ffe9e560044-2382": 29,
+      "f1bf2ffe9e560044-0459": 29,
+      "f1bf2ffe9e560044-3928": 28,
+      "f1bf2ffe9e560044-7160": 7
+    },
+    "ownTeamTotalLeetifyRatings": {
+      "76561198166300107": 0.0272,
+      "f1bf2ffe9e560044-2382": -0.0085,
+      "f1bf2ffe9e560044-0459": 0.095,
+      "f1bf2ffe9e560044-3928": 0.017,
+      "f1bf2ffe9e560044-7160": 0.1028
+    },
+    "ctLeetifyRating": 0.0303,
+    "ctLeetifyRatingRounds": 14,
+    "dataSource": "matchmaking",
+    "elo": null,
+    "gameFinishedAt": "2024-12-28T00:00:00.000Z",
+    "gameId": "f1bf2ffe9e560044-d8098d",
+    "isCs2": true,
+    "mapName": "de_mirage",
+    "matchResult": "loss",
+    "rankType": 11,
+    "scores": [
+      14,
+      15
+    ],
+    "skillLevel": 1512,
+    "tLeetifyRating": 0.0239,
+    "tLeetifyRatingRounds": 15,
+    "deaths": 21,
+    "hasBannedPlayer": false,
+    "kills": 30,
+    "partySize": 2
+  },
+  "76561198057449264": {
+    "enemyTeamSteam64Ids": [
+      "76561198121482658",
+      "76561198307613503",
+      "76561198350773380",
+      "76561198830997683",
+      "76561199716270572"
+    ],
+    "isCompletedLongMatch": false,
+    "ownTeamSteam64Ids": [
+      "76561197963649468",
+      "76561197992011647",
+      "76561198057449264",
+      "76561198144207990",
+      "76561198872990459"
+    ],
+    "ownTeamTotalLeetifyRatingRounds": {
+      "76561197963649468": 9,
+      "76561197992011647": 3,
+      "76561198057449264": 18,
+      "76561198144207990": 18,
+      "76561198872990459": 18
+    },
+    "ownTeamTotalLeetifyRatings": {
+      "76561197963649468": 0.0007,
+      "76561197992011647": -0.2361,
+      "76561198057449264": 0.1976,
+      "76561198144207990": 0.0172,
+      "76561198872990459": 0.3066
+    },
+    "ctLeetifyRating": 0.4687,
+    "ctLeetifyRatingRounds": 12,
+    "dataSource": "matchmaking",
+    "elo": null,
+    "gameFinishedAt": "2024-12-22T06:43:30.000Z",
+    "gameId": "6f373788-1d34-4972-83ca-f79a25e7462c",
+    "isCs2": true,
+    "mapName": "de_dust2",
+    "matchResult": "win",
+    "rankType": 11,
+    "scores": [
+      13,
+      5
+    ],
+    "skillLevel": 1973,
+    "tLeetifyRating": 0.062,
+    "tLeetifyRatingRounds": 6,
+    "deaths": 11,
+    "hasBannedPlayer": false,
+    "kills": 26,
+    "partySize": 2
+  },
+  "76561198441182477": {
+    "enemyTeamSteam64Ids": [
+      "76561198189133641",
+      "76561198246840450",
+      "76561198362883018",
+      "76561199201180641",
+      "76561199227513818"
+    ],
+    "isCompletedLongMatch": false,
+    "ownTeamSteam64Ids": [
+      "76561198210464163",
+      "76561198293208048",
+      "76561198297177105",
+      "76561198441182477",
+      "76561198872990459"
+    ],
+    "ownTeamTotalLeetifyRatingRounds": {
+      "76561198210464163": 24,
+      "76561198293208048": 24,
+      "76561198297177105": 24,
+      "76561198441182477": 24,
+      "76561198872990459": 24
+    },
+    "ownTeamTotalLeetifyRatings": {
+      "76561198210464163": -0.0655,
+      "76561198293208048": 0.0399,
+      "76561198297177105": -0.0386,
+      "76561198441182477": 0.0209,
+      "76561198872990459": 0.0082
+    },
+    "ctLeetifyRating": 0.0159,
+    "ctLeetifyRatingRounds": 12,
+    "dataSource": "matchmaking",
+    "elo": null,
+    "gameFinishedAt": "2024-11-02T06:20:00.000Z",
+    "gameId": "03b5d1cb-c2ba-4430-9c9d-7b9ea95b7e9d",
+    "isCs2": true,
+    "mapName": "de_mirage",
+    "matchResult": "loss",
+    "rankType": 11,
+    "scores": [
+      11,
+      13
+    ],
+    "skillLevel": 1837,
+    "tLeetifyRating": 0.0258,
+    "tLeetifyRatingRounds": 12,
+    "deaths": 18,
+    "hasBannedPlayer": false,
+    "kills": 20,
+    "partySize": 3
+  },
+  "76561199015029621": {
+    "enemyTeamSteam64Ids": [
+      "76561198093677164",
+      "76561198273568673",
+      "76561198984274660",
+      "76561199303395978",
+      "76561199681254591"
+    ],
+    "isCompletedLongMatch": false,
+    "ownTeamSteam64Ids": [
+      "76561197987669688",
+      "76561198053480469",
+      "76561198417126457",
+      "76561198872990459",
+      "76561199015029621"
+    ],
+    "ownTeamTotalLeetifyRatingRounds": {
+      "76561197987669688": 7,
+      "76561198053480469": 10,
+      "76561198417126457": 11,
+      "76561198872990459": 11,
+      "76561199015029621": 11
+    },
+    "ownTeamTotalLeetifyRatings": {
+      "76561197987669688": 0.0345,
+      "76561198053480469": -0.036,
+      "76561198417126457": 0.0619,
+      "76561198872990459": -0.0309,
+      "76561199015029621": -0.0219
+    },
+    "ctLeetifyRating": 0,
+    "ctLeetifyRatingRounds": 11,
+    "dataSource": "matchmaking",
+    "elo": null,
+    "gameFinishedAt": "2024-10-10T04:05:26.000Z",
+    "gameId": "26c42127-00dc-4e92-8358-95317cff6708",
+    "isCs2": true,
+    "mapName": "de_mirage",
+    "matchResult": "loss",
+    "rankType": 11,
+    "scores": [
+      3,
+      8
+    ],
+    "skillLevel": 1726,
+    "tLeetifyRating": -0.0219,
+    "tLeetifyRatingRounds": 0,
+    "deaths": 9,
+    "hasBannedPlayer": false,
+    "kills": 3,
+    "partySize": 3
+  },
+  "76561198417126457": {
+    "enemyTeamSteam64Ids": [
+      "273083541612980",
+      "8856582809948379",
+      "701901513132670",
+      "3814135272985184",
+      "6414847130704748"
+    ],
+    "isCompletedLongMatch": false,
+    "ownTeamSteam64Ids": [
+      "4141657651414384",
+      "6127230643698212",
+      "6085933275560333",
+      "2767729304593581",
+      "5075057819403340"
+    ],
+    "ownTeamTotalLeetifyRatingRounds": {
+      "76561198417126457": 22,
+      "3e6573ffb3c6e212-0523": 22,
+      "3e6573ffb3c6e212-0107": 22,
+      "3e6573ffb3c6e212-0459": 22,
+      "3e6573ffb3c6e212-0077": 22
+    },
+    "ownTeamTotalLeetifyRatings": {
+      "76561198417126457": -0.052,
+      "3e6573ffb3c6e212-0523": -0.0102,
+      "3e6573ffb3c6e212-0107": 0.048,
+      "3e6573ffb3c6e212-0459": -0.0873,
+      "3e6573ffb3c6e212-0077": 0.0093
+    },
+    "ctLeetifyRating": -0.026,
+    "ctLeetifyRatingRounds": 12,
+    "dataSource": "matchmaking",
+    "elo": null,
+    "gameFinishedAt": "2024-12-26T00:00:00.000Z",
+    "gameId": "3e6573ffb3c6e212-aaa168",
+    "isCs2": true,
+    "mapName": "de_mirage",
+    "matchResult": "loss",
+    "rankType": 11,
+    "scores": [
+      9,
+      13
+    ],
+    "skillLevel": 1988,
+    "tLeetifyRating": -0.0737,
+    "tLeetifyRatingRounds": 10,
+    "deaths": 18,
+    "hasBannedPlayer": false,
+    "kills": 9,
+    "partySize": 3
+  },
+  "76561198913629403": {
+    "enemyTeamSteam64Ids": [
+      "5586579993844340",
+      "5110752231652096",
+      "5644344244842506",
+      "2933249960392425",
+      "3894370138463548"
+    ],
+    "isCompletedLongMatch": false,
+    "ownTeamSteam64Ids": [
+      "1842061418593941",
+      "5747031867041891",
+      "5729625356380671",
+      "1774029754706005",
+      "1548270930746872"
+    ],
+    "ownTeamTotalLeetifyRatingRounds": {
+      "76561198913629403": 21,
+      "02d10d0009da6853-9040": 21,
+      "02d10d0009da6853-6262": 21,
+      "02d10d0009da6853-8315": 21,
+      "02d10d0009da6853-6048": 21
+    },
+    "ownTeamTotalLeetifyRatings": {
+      "76561198913629403": 0.003,
+      "02d10d0009da6853-9040": -0.0488,
+      "02d10d0009da6853-6262": -0.0168,
+      "02d10d0009da6853-8315": 0.085,
+      "02d10d0009da6853-6048": -0.1194
+    },
+    "ctLeetifyRating": 0.0211,
+    "ctLeetifyRatingRounds": 9,
+    "dataSource": "matchmaking",
+    "elo": null,
+    "gameFinishedAt": "2024-05-24T00:00:00.000Z",
+    "gameId": "02d10d0009da6853-026306",
+    "isCs2": true,
+    "mapName": "de_dust2",
+    "matchResult": "loss",
+    "rankType": 11,
+    "scores": [
+      8,
+      13
+    ],
+    "skillLevel": 2531,
+    "tLeetifyRating": -0.0212,
+    "tLeetifyRatingRounds": 12,
+    "deaths": 15,
+    "hasBannedPlayer": false,
+    "kills": 17,
+    "partySize": 2
+  },
+  "76561199013102391": {
+    "enemyTeamSteam64Ids": [
+      "7736020247393929",
+      "1671746275308730",
+      "5908388646160571",
+      "7678329271797866",
+      "3059453491608079"
+    ],
+    "isCompletedLongMatch": false,
+    "ownTeamSteam64Ids": [
+      "1925006080398241",
+      "6127230643698212",
+      "2767729304593581",
+      "1039830974843928",
+      "3166516640281644"
+    ],
+    "ownTeamTotalLeetifyRatingRounds": {
+      "76561199013102391": 16,
+      "1866a4d3479c0f3f-1935": 16,
+      "1866a4d3479c0f3f-0107": 16,
+      "1866a4d3479c0f3f-0459": 16,
+      "1866a4d3479c0f3f-1898": 16
+    },
+    "ownTeamTotalLeetifyRatings": {
+      "76561199013102391": 0.028,
+      "1866a4d3479c0f3f-1935": 0.011,
+      "1866a4d3479c0f3f-0107": 0.0517,
+      "1866a4d3479c0f3f-0459": 0.1098,
+      "1866a4d3479c0f3f-1898": -0.0204
+    },
+    "ctLeetifyRating": -0.22,
+    "ctLeetifyRatingRounds": 12,
+    "dataSource": "matchmaking",
+    "elo": null,
+    "gameFinishedAt": "2024-12-26T00:00:00.000Z",
+    "gameId": "1866a4d3479c0f3f-a79e18",
+    "isCs2": true,
+    "mapName": "de_dust2",
+    "matchResult": "win",
+    "rankType": 11,
+    "scores": [
+      13,
+      3
+    ],
+    "skillLevel": 1600,
+    "tLeetifyRating": 0.1106,
+    "tLeetifyRatingRounds": 4,
+    "deaths": 10,
+    "hasBannedPlayer": false,
+    "kills": 14,
+    "partySize": 3
+  },
+  "76561198419381848": {
+    "enemyTeamSteam64Ids": [
+      "5421594932860744",
+      "2988614320529843",
+      "2787547485615534",
+      "2729776998264355",
+      "5264050442904288"
+    ],
+    "isCompletedLongMatch": false,
+    "ownTeamSteam64Ids": [
+      "4827906121133111",
+      "2635565646602741",
+      "1452470993364989",
+      "5765753064247690",
+      "2505161807232104"
+    ],
+    "ownTeamTotalLeetifyRatingRounds": {
+      "76561198419381848": 15,
+      "55285781ffe9d4f3-4163": 15,
+      "55285781ffe9d4f3-8803": 15,
+      "55285781ffe9d4f3-8904": 14,
+      "55285781ffe9d4f3-0846": 15
+    },
+    "ownTeamTotalLeetifyRatings": {
+      "76561198419381848": -0.0198,
+      "55285781ffe9d4f3-4163": 0.0746,
+      "55285781ffe9d4f3-8803": -0.0102,
+      "55285781ffe9d4f3-8904": -0.017,
+      "55285781ffe9d4f3-0846": 0.0177
+    },
+    "ctLeetifyRating": -0.0026,
+    "ctLeetifyRatingRounds": 12,
+    "dataSource": "matchmaking",
+    "elo": null,
+    "gameFinishedAt": "2024-07-15T00:00:00.000Z",
+    "gameId": "55285781ffe9d4f3-51d361",
+    "isCs2": true,
+    "mapName": "de_mirage",
+    "matchResult": "loss",
+    "rankType": 11,
+    "scores": [
+      9,
+      6
+    ],
+    "skillLevel": 2155,
+    "tLeetifyRating": -0.0241,
+    "tLeetifyRatingRounds": 3,
+    "deaths": 9,
+    "hasBannedPlayer": true,
+    "kills": 9,
+    "partySize": 3
+  },
+  "76561199697454772": {
+    "enemyTeamSteam64Ids": [
+      "5378050704689335",
+      "4257243065186438",
+      "1385617746312036",
+      "6063850296295819",
+      "6844268760688109"
+    ],
+    "isCompletedLongMatch": false,
+    "ownTeamSteam64Ids": [
+      "6673670983230496",
+      "2225223619363919",
+      "173112412862482",
+      "5054530207150459",
+      "3671714689311070"
+    ],
+    "ownTeamTotalLeetifyRatingRounds": {
+      "76561199697454772": 24,
+      "ad22a88ddce17c59-6147": 24,
+      "ad22a88ddce17c59-2173": 24,
+      "ad22a88ddce17c59-5831": 24,
+      "ad22a88ddce17c59-2363": 24
+    },
+    "ownTeamTotalLeetifyRatings": {
+      "76561199697454772": -0.0084,
+      "ad22a88ddce17c59-6147": 0.0609,
+      "ad22a88ddce17c59-2173": 0.0207,
+      "ad22a88ddce17c59-5831": 0.0352,
+      "ad22a88ddce17c59-2363": -0.0708
+    },
+    "ctLeetifyRating": -0.1275,
+    "ctLeetifyRatingRounds": 12,
+    "dataSource": "matchmaking",
+    "elo": null,
+    "gameFinishedAt": "2024-12-16T00:00:00.000Z",
+    "gameId": "ad22a88ddce17c59-98f775",
+    "isCs2": true,
+    "mapName": "de_dust2",
+    "matchResult": "win",
+    "rankType": 11,
+    "scores": [
+      13,
+      11
+    ],
+    "skillLevel": 1646,
+    "tLeetifyRating": 0.1107,
+    "tLeetifyRatingRounds": 12,
+    "deaths": 20,
+    "hasBannedPlayer": false,
+    "kills": 20,
+    "partySize": 1
+  },
+  "76561199697983599": {
+    "enemyTeamSteam64Ids": [
+      "76561198812102568",
+      "76561199146755729",
+      "76561199394553652",
+      "76561199691384506",
+      "76561199789194543"
+    ],
+    "isCompletedLongMatch": false,
+    "ownTeamSteam64Ids": [
+      "76561198155524270",
+      "76561198166300107",
+      "76561198872990459",
+      "76561199516323282",
+      "76561199697983599"
+    ],
+    "ownTeamTotalLeetifyRatingRounds": {
+      "76561198155524270": 17,
+      "76561198166300107": 17,
+      "76561198872990459": 17,
+      "76561199516323282": 16,
+      "76561199697983599": 17
+    },
+    "ownTeamTotalLeetifyRatings": {
+      "76561198155524270": -0.0902,
+      "76561198166300107": 0.0973,
+      "76561198872990459": 0.1062,
+      "76561199516323282": 0.0513,
+      "76561199697983599": -0.0187
+    },
+    "ctLeetifyRating": -0.0058,
+    "ctLeetifyRatingRounds": 5,
+    "dataSource": "matchmaking",
+    "elo": null,
+    "gameFinishedAt": "2024-12-26T05:37:03.000Z",
+    "gameId": "6594705e-b65f-4ebe-9a9f-0b9e72b20ba5",
+    "isCs2": true,
+    "mapName": "de_inferno",
+    "matchResult": "loss",
+    "rankType": 11,
+    "scores": [
+      11,
+      6
+    ],
+    "skillLevel": 1241,
+    "tLeetifyRating": -0.0496,
+    "tLeetifyRatingRounds": 12,
+    "deaths": 10,
+    "hasBannedPlayer": false,
+    "kills": 13,
+    "partySize": 3
+  },
+  "76561199702087214": {
+    "enemyTeamSteam64Ids": [
+      "8233512260367838",
+      "6006304348881696",
+      "3075022742535437",
+      "4109527128385005",
+      "3114612695559546"
+    ],
+    "isCompletedLongMatch": false,
+    "ownTeamSteam64Ids": [
+      "81196435627114",
+      "1484194669981513",
+      "2757091811560962",
+      "2673780823888914",
+      "8407659892722981"
+    ],
+    "ownTeamTotalLeetifyRatingRounds": {
+      "76561199702087214": 2,
+      "43bfae64d3b19a00-0795": 2,
+      "43bfae64d3b19a00-7085": 2,
+      "43bfae64d3b19a00-1323": 2,
+      "43bfae64d3b19a00-3599": 2
+    },
+    "ownTeamTotalLeetifyRatings": {
+      "76561199702087214": 0,
+      "43bfae64d3b19a00-0795": 0,
+      "43bfae64d3b19a00-7085": -0.031,
+      "43bfae64d3b19a00-1323": 0.0508,
+      "43bfae64d3b19a00-3599": 0.1164
+    },
+    "ctLeetifyRating": 0,
+    "ctLeetifyRatingRounds": 2,
+    "dataSource": "matchmaking",
+    "elo": null,
+    "gameFinishedAt": "2024-08-14T00:00:00.000Z",
+    "gameId": "43bfae64d3b19a00-eea8fd",
+    "isCs2": true,
+    "mapName": "de_mirage",
+    "matchResult": "loss",
+    "rankType": 11,
+    "scores": [
+      1,
+      1
+    ],
+    "skillLevel": 2111,
+    "tLeetifyRating": 0,
+    "tLeetifyRatingRounds": 0,
+    "deaths": 1,
+    "hasBannedPlayer": true,
+    "kills": 0,
+    "partySize": 2
+  },
+  "76561198846884926": {
+    "enemyTeamSteam64Ids": [
+      "76561197983015430",
+      "76561198160292598",
+      "76561198182256443",
+      "76561198371558904",
+      "76561198960253649"
+    ],
+    "isCompletedLongMatch": false,
+    "ownTeamSteam64Ids": [
+      "76561198372063985",
+      "76561198840262322",
+      "76561198846884926",
+      "76561198969675534",
+      "76561199007543999"
+    ],
+    "ownTeamTotalLeetifyRatingRounds": {
+      "76561198372063985": 2,
+      "76561198840262322": 2,
+      "76561198846884926": 1,
+      "76561198969675534": 2,
+      "76561199007543999": 2
+    },
+    "ownTeamTotalLeetifyRatings": {
+      "76561198372063985": -0.0223,
+      "76561198840262322": 0,
+      "76561198846884926": 0,
+      "76561198969675534": -0.0205,
+      "76561199007543999": -0.0539
+    },
+    "ctLeetifyRating": 0,
+    "ctLeetifyRatingRounds": 1,
+    "dataSource": "matchmaking",
+    "elo": null,
+    "gameFinishedAt": "2024-12-26T07:50:45.000Z",
+    "gameId": "63b4770b-6f6a-47e6-b1d5-3b1939dab753",
+    "isCs2": true,
+    "mapName": "de_inferno",
+    "matchResult": "loss",
+    "rankType": 11,
+    "scores": [
+      0,
+      2
+    ],
+    "skillLevel": 0,
+    "tLeetifyRating": 0,
+    "tLeetifyRatingRounds": 0,
+    "deaths": 1,
+    "hasBannedPlayer": false,
+    "kills": 0,
+    "partySize": 1
+  },
+  "76561198210464163": {
+    "enemyTeamSteam64Ids": [
+      "76561199130138172",
+      "76561199245968493",
+      "76561199381426744",
+      "76561199403148357",
+      "76561199606030805"
+    ],
+    "isCompletedLongMatch": false,
+    "ownTeamSteam64Ids": [
+      "76561198001915011",
+      "76561198043773297",
+      "76561198210464163",
+      "76561198842691504",
+      "76561199217918237"
+    ],
+    "ownTeamTotalLeetifyRatingRounds": {
+      "76561198001915011": 15,
+      "76561198043773297": 15,
+      "76561198210464163": 15,
+      "76561198842691504": 15,
+      "76561199217918237": 15
+    },
+    "ownTeamTotalLeetifyRatings": {
+      "76561198001915011": -0.0326,
+      "76561198043773297": -0.0334,
+      "76561198210464163": 0.123,
+      "76561198842691504": -0.0131,
+      "76561199217918237": 0.198
+    },
+    "ctLeetifyRating": 0.1816,
+    "ctLeetifyRatingRounds": 12,
+    "dataSource": "matchmaking",
+    "elo": null,
+    "gameFinishedAt": "2024-12-20T16:14:29.000Z",
+    "gameId": "f061de96-2c24-40a5-8e36-678a7289339b",
+    "isCs2": true,
+    "mapName": "de_mirage",
+    "matchResult": "win",
+    "rankType": 11,
+    "scores": [
+      13,
+      2
+    ],
+    "skillLevel": 1516,
+    "tLeetifyRating": 0.1083,
+    "tLeetifyRatingRounds": 3,
+    "deaths": 6,
+    "hasBannedPlayer": false,
+    "kills": 27,
+    "partySize": 1
+  },
+  "76561198262417737": {
+    "enemyTeamSteam64Ids": [
+      "76561197971883810",
+      "76561198116610719",
+      "76561198203259230",
+      "76561198998459910",
+      "76561199467145698"
+    ],
+    "isCompletedLongMatch": false,
+    "ownTeamSteam64Ids": [
+      "76561198262417737",
+      "76561198835452310",
+      "76561199206499896",
+      "76561199514618057",
+      "76561199516160269"
+    ],
+    "ownTeamTotalLeetifyRatingRounds": {
+      "76561198262417737": 1,
+      "76561198835452310": 21,
+      "76561199206499896": 21,
+      "76561199514618057": 21,
+      "76561199516160269": 21
+    },
+    "ownTeamTotalLeetifyRatings": {
+      "76561198262417737": -0.1538,
+      "76561198835452310": -0.0423,
+      "76561199206499896": 0.0681,
+      "76561199514618057": 0.0391,
+      "76561199516160269": 0.0479
+    },
+    "ctLeetifyRating": 0,
+    "ctLeetifyRatingRounds": 1,
+    "dataSource": "matchmaking",
+    "elo": null,
+    "gameFinishedAt": "2024-12-10T15:56:47.000Z",
+    "gameId": "308cb0ee-b3ab-48a4-b8f4-f6401d543da2",
+    "isCs2": true,
+    "mapName": "de_inferno",
+    "matchResult": "loss",
+    "rankType": 11,
+    "scores": [
+      8,
+      13
+    ],
+    "skillLevel": 1584,
+    "tLeetifyRating": -0.1538,
+    "tLeetifyRatingRounds": 0,
+    "deaths": 1,
+    "hasBannedPlayer": false,
+    "kills": 0,
+    "partySize": 1
+  },
+  "76561199026910589": {
+    "enemyTeamSteam64Ids": [
+      "1877285464488471",
+      "6338577723053249",
+      "8324381143333722",
+      "491170034721266",
+      "964716866147526"
+    ],
+    "isCompletedLongMatch": false,
+    "ownTeamSteam64Ids": [
+      "7820567158539714",
+      "6085933275560333",
+      "1032580295692239",
+      "8122761994481143",
+      "8316119855859658"
+    ],
+    "ownTeamTotalLeetifyRatingRounds": {
+      "76561199026910589": 11,
+      "f1bf2ffe9e560044-2999": 10,
+      "f1bf2ffe9e560044-6457": 11,
+      "f1bf2ffe9e560044-5484": 11,
+      "f1bf2ffe9e560044-0100": 9
+    },
+    "ownTeamTotalLeetifyRatings": {
+      "76561199026910589": 0.0019,
+      "f1bf2ffe9e560044-2999": -0.0375,
+      "f1bf2ffe9e560044-6457": 0.064,
+      "f1bf2ffe9e560044-5484": 0.0694,
+      "f1bf2ffe9e560044-0100": 0.0445
+    },
+    "ctLeetifyRating": 0,
+    "ctLeetifyRatingRounds": 11,
+    "dataSource": "matchmaking",
+    "elo": null,
+    "gameFinishedAt": "2024-08-04T00:00:00.000Z",
+    "gameId": "f1bf2ffe9e560044-d198f6",
+    "isCs2": true,
+    "mapName": "de_inferno",
+    "matchResult": "loss",
+    "rankType": 11,
+    "scores": [
+      5,
+      6
+    ],
+    "skillLevel": 2537,
+    "tLeetifyRating": 0.0019,
+    "tLeetifyRatingRounds": 0,
+    "deaths": 9,
+    "hasBannedPlayer": false,
+    "kills": 7,
+    "partySize": 2
+  },
+  "76561198979910846": {
+    "enemyTeamSteam64Ids": [
+      "2493175390930645",
+      "3600308151375219",
+      "1830682637249183",
+      "7254809913109212",
+      "3929105275269793"
+    ],
+    "isCompletedLongMatch": false,
+    "ownTeamSteam64Ids": [
+      "4524500045811768",
+      "1972428385365578",
+      "1773929910139185",
+      "2505161807232104",
+      "6590308294659557"
+    ],
+    "ownTeamTotalLeetifyRatingRounds": {
+      "76561198979910846": 15,
+      "55285781ffe9d4f3-7529": 15,
+      "55285781ffe9d4f3-9264": 15,
+      "55285781ffe9d4f3-9709": 15,
+      "55285781ffe9d4f3-3979": 14
+    },
+    "ownTeamTotalLeetifyRatings": {
+      "76561198979910846": 0.0858,
+      "55285781ffe9d4f3-7529": -0.041,
+      "55285781ffe9d4f3-9264": -0.0231,
+      "55285781ffe9d4f3-9709": 0.0718,
+      "55285781ffe9d4f3-3979": 0.0477
+    },
+    "ctLeetifyRating": 0.1032,
+    "ctLeetifyRatingRounds": 3,
+    "dataSource": "matchmaking",
+    "elo": null,
+    "gameFinishedAt": "2024-07-15T00:00:00.000Z",
+    "gameId": "55285781ffe9d4f3-d58ddf",
+    "isCs2": true,
+    "mapName": "de_dust2",
+    "matchResult": "loss",
+    "rankType": 11,
+    "scores": [
+      10,
+      5
+    ],
+    "skillLevel": 1844,
+    "tLeetifyRating": 0.0161,
+    "tLeetifyRatingRounds": 12,
+    "deaths": 7,
+    "hasBannedPlayer": true,
+    "kills": 14,
+    "partySize": 2
+  },
+  "76561198393185379": {
+    "enemyTeamSteam64Ids": [
+      "7649398198708082",
+      "1578440973262190",
+      "4983628599120915",
+      "8049815494916585",
+      "1904990673836159"
+    ],
+    "isCompletedLongMatch": false,
+    "ownTeamSteam64Ids": [
+      "3605763186711668",
+      "6466687565667295",
+      "7060727285919255",
+      "1883881288860296",
+      "7366046043664281"
+    ],
+    "ownTeamTotalLeetifyRatingRounds": {
+      "76561198393185379": 16,
+      "6d02a640f08a4af0-5756": 16,
+      "6d02a640f08a4af0-2477": 16,
+      "6d02a640f08a4af0-6348": 14,
+      "6d02a640f08a4af0-0459": 12
+    },
+    "ownTeamTotalLeetifyRatings": {
+      "76561198393185379": -0.0558,
+      "6d02a640f08a4af0-5756": -0.0044,
+      "6d02a640f08a4af0-2477": -0.0034,
+      "6d02a640f08a4af0-6348": -0.0072,
+      "6d02a640f08a4af0-0459": -0.0276
+    },
+    "ctLeetifyRating": -0.0382,
+    "ctLeetifyRatingRounds": 12,
+    "dataSource": "matchmaking",
+    "elo": null,
+    "gameFinishedAt": "2024-05-28T00:00:00.000Z",
+    "gameId": "6d02a640f08a4af0-f5c0a4",
+    "isCs2": true,
+    "mapName": "de_mirage",
+    "matchResult": "loss",
+    "rankType": 11,
+    "scores": [
+      3,
+      13
+    ],
+    "skillLevel": 1474,
+    "tLeetifyRating": -0.0617,
+    "tLeetifyRatingRounds": 4,
+    "deaths": 13,
+    "hasBannedPlayer": false,
+    "kills": 7,
+    "partySize": 2
+  }
+}
