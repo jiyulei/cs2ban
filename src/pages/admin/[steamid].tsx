@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { fetchRecentGames } from "../../utils/fetchLatestGame";
 import { fetchBannedPlayers } from "../../utils/fetchBannedPlayers";
+import { fetchLeetifyGames } from "../../utils/fetchLeetifyGames";
 
 const AdminDetailsPage = () => {
   const router = useRouter();
@@ -11,6 +12,7 @@ const AdminDetailsPage = () => {
   const [bannedPlayers, setBannedPlayers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [leetifyGames, setLeetifyGames] = useState([]);
 
   const handleFetchRecentGames = async () => {
     setLoading(true);
@@ -28,6 +30,27 @@ const AdminDetailsPage = () => {
       setLoading(false);
     }
   };
+
+
+  const handleFetchLeetifyGames = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetchLeetifyGames(steamid);
+      if (response.games) {
+        setLeetifyGames([response.games]);
+      } else {
+        setError(response.message || "Failed to retrieve game data");
+      }
+    } catch (error) {
+      setError("An error occurred while fetching recent games.");
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    console.log(leetifyGames)
+  })
 
   // const handleFetchBannedPlayers = async () => {
   //   setLoading(true);
@@ -53,7 +76,7 @@ const AdminDetailsPage = () => {
           </button>
           <button
             className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-            onClick={() => {}}
+            onClick={handleFetchLeetifyGames}
           >
             Get Banned Players
           </button>
