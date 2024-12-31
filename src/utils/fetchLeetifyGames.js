@@ -1,6 +1,10 @@
 import axios from "axios";
 
 export const fetchLeetifyGames = async (steamid) => {
+  if (!steamid) {
+    return { success: false, message: "SteamID is required." };
+  }
+  
   try {
     const response = await axios.get(
       `https://api.leetify.com/api/profile/${steamid}`
@@ -11,4 +15,3 @@ export const fetchLeetifyGames = async (steamid) => {
     return { success: false, message: "Failed to fetch recent games" };
   }
 };
-

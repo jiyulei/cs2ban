@@ -48,9 +48,7 @@ const AdminDetailsPage = () => {
       setLoading(false);
     }
   };
-  useEffect(() => {
-    console.log(leetifyGames)
-  })
+
 
   // const handleFetchBannedPlayers = async () => {
   //   setLoading(true);
