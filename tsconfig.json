@@ -17,6 +17,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/utils/convertSteamUrl.js", "src/utils/getRecentGames.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/utils/convertSteamUrl.js", "src/utils/getRecentGames.js", "src/utils/fetchLatestGame.js"],
   "exclude": ["node_modules"]
 }

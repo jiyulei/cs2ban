@@ -29,7 +29,7 @@ export default async function handler(
 
       // Fetch the banlist data
       const banlist = await collection
-        .find({}, { projection: { _id: 0 } }) // Exclude `_id` field if not needed
+        .find({}, { projection: { _id: 0 } }) 
         .sort({ date: -1 }) // Sort by `date` descending
         .toArray();
 
