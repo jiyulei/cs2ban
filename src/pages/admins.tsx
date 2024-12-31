@@ -37,7 +37,13 @@ const AdminListPage = () => {
           <div
             key={index}
             className="flex flex-col items-center cursor-pointer"
-            onClick={() => router.push(`/admin/${admin.steamid}`)}
+            onClick={() =>
+              router.push(
+                `/admin/${admin.steamid}?name=${encodeURIComponent(
+                  admin.personaname
+                )}`
+              )
+            }
           >
             <img
               src={admin.avatarfull}
