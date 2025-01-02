@@ -12,9 +12,9 @@ const AdminDetailsPage = () => {
   const [bannedPlayers, setBannedPlayers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [comparisonResults, setComparisonResults] = useState(null);
+  const [newGames, setNewGames] = useState(null);
 
-  const compareGames = (recentGames, leetifyGames) => {
+  const getNewGames = (recentGames, leetifyGames) => {
     const targetGameId = recentGames.gameId;
     console.log("targetgameid--->", targetGameId)
     if (!targetGameId) {
@@ -47,13 +47,13 @@ const AdminDetailsPage = () => {
         recentGamesResponse.gameData &&
         leetifyGamesResponse.games
       ) {
-        const comparisonResult = compareGames(
+        const comparisonResult = getNewGames(
           recentGamesResponse.gameData,
           leetifyGamesResponse.games
         );
 
 
-        setComparisonResults(comparisonResult);
+        setNewGames(comparisonResult);
       } else {
         setError("Failed to retrieve or compare game data.");
       }
@@ -68,7 +68,7 @@ const AdminDetailsPage = () => {
 
   useEffect(() => {
 
-    console.log("comparison result--->", comparisonResults)
+    console.log("comparison result--->", newGames)
   })
 
   return (
@@ -125,8 +125,8 @@ const AdminDetailsPage = () => {
         </div>
 
         {activeTab === "recentGames" &&
-          comparisonResults &&
-          comparisonResults.length > 0 && (
+          newGames &&
+          newGames.length > 0 && (
             <table className="min-w-full divide-y divide-gray-200 bg-white shadow-md rounded-lg mt-6">
               <thead className="bg-gray-50">
                 <tr>
@@ -145,7 +145,7 @@ const AdminDetailsPage = () => {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {comparisonResults.map((game, index) => (
+                {newGames.map((game, index) => (
                   <tr key={index}>
                     <td className="px-6 py-4">{game.mapName}</td>
                     <td className="px-6 py-4">{game.matchResult}</td>
