@@ -7,31 +7,50 @@ import { ADMINS_STEAMID } from "../../utils/constants";
 
 const AdminDetailsPage = () => {
   const router = useRouter();
-  const { steamid, name } = router.query; 
+  const { steamid, name } = router.query;
   const [activeTab, setActiveTab] = useState("recentGames");
   const [bannedPlayers, setBannedPlayers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [newGames, setNewGames] = useState(null);
 
+  const getBannedPlayers = (games) => {
+    games.forEach((game) => {
+      const teammateIds = game.ownTeamSteam64Ids.filter(
+        (el) => !ADMINS_STEAMID.includes(el)
+      );
+      let key = game.gameId.slice(-6);
+      const team = { [key]: teammateIds };
+
+      const enemyIds = game.enemyTeamSteam64Ids;
+      const enemy = { [key]: game.enemyTeamSteam64Ids };
+      console.log("teammateIds", team);
+      console.log("enemyIds", enemy);
+    });
+  };
+
   const getNewGames = (recentGames, leetifyGames) => {
+    // Todo: match only last 6 digits
+    // eg: recentGames.gameId.slice(-6)
     const targetGameId = recentGames.gameId;
-    console.log("targetgameid--->", targetGameId)
+    console.log("targetgameid--->", targetGameId);
     if (!targetGameId) {
-      return []; 
+      return [];
     }
 
-    
     const index = leetifyGames.findIndex((el) => el.gameId === targetGameId);
 
     if (index === -1) {
       return [];
     }
-    // Todo: Change this to slice(0, index) 
+    // Todo: Change this to slice(0, index)
     return leetifyGames.slice(0, index + 1);
   };
 
-  
+  const handleClickBannedPlayers = () => {
+    getBannedPlayers(newGames);
+  };
+
   const handleFetchAndCompareGames = async () => {
     setLoading(true);
     setError(null);
@@ -52,7 +71,6 @@ const AdminDetailsPage = () => {
           leetifyGamesResponse.games
         );
 
-
         setNewGames(comparisonResult);
       } else {
         setError("Failed to retrieve or compare game data.");
@@ -64,12 +82,9 @@ const AdminDetailsPage = () => {
     }
   };
 
-
-
   useEffect(() => {
-
-    console.log("comparison result--->", newGames)
-  })
+    console.log("comparison result--->", newGames);
+  });
 
   return (
     <div className="p-6 bg-gray-200 min-h-screen">
@@ -86,7 +101,7 @@ const AdminDetailsPage = () => {
           </button>
           <button
             className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-            onClick={() => {}}
+            onClick={handleClickBannedPlayers}
           >
             Get Banned Players
           </button>
@@ -124,42 +139,40 @@ const AdminDetailsPage = () => {
           </nav>
         </div>
 
-        {activeTab === "recentGames" &&
-          newGames &&
-          newGames.length > 0 && (
-            <table className="min-w-full divide-y divide-gray-200 bg-white shadow-md rounded-lg mt-6">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Map Name
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    Match Result
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    K/D
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                    GameFinishedAt
-                  </th>
+        {activeTab === "recentGames" && newGames && newGames.length > 0 && (
+          <table className="min-w-full divide-y divide-gray-200 bg-white shadow-md rounded-lg mt-6">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Map Name
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Match Result
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  K/D
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  GameFinishedAt
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {newGames.map((game, index) => (
+                <tr key={index}>
+                  <td className="px-6 py-4">{game.mapName}</td>
+                  <td className="px-6 py-4">{game.matchResult}</td>
+                  <td className="px-6 py-4">
+                    {game.kills} / {game.deaths}
+                  </td>
+                  <td className="px-6 py-4">
+                    {new Date(game.gameFinishedAt).toLocaleString()}
+                  </td>
                 </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {newGames.map((game, index) => (
-                  <tr key={index}>
-                    <td className="px-6 py-4">{game.mapName}</td>
-                    <td className="px-6 py-4">{game.matchResult}</td>
-                    <td className="px-6 py-4">
-                      {game.kills} / {game.deaths}
-                    </td>
-                    <td className="px-6 py-4">
-                      {new Date(game.gameFinishedAt).toLocaleString()}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
+              ))}
+            </tbody>
+          </table>
+        )}
 
         {activeTab === "bannedPlayers" && bannedPlayers.length > 0 && (
           <table className="min-w-full divide-y divide-gray-200 bg-white shadow-md rounded-lg mt-6">
