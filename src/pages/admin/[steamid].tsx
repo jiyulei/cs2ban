@@ -14,7 +14,23 @@ const AdminDetailsPage = () => {
   const [error, setError] = useState(null);
   const [newGames, setNewGames] = useState(null);
 
-  const getRecentTeammatesAndEnemies= (games) => {
+  const eloCheck = (gameId, games) => {
+    const matchedIndex = games.findIndex(el => el.gameId = gameId);
+    const [currentMatch, previousMatch] = games.slice(matchedIndex, matchedIndex + 2);
+    // no skillLevel & loss
+    if (previousMatch.skillLevel === 0 && currentMatch.skillLevel === 0) {
+      // display to user
+    }
+    // losing 300+ elo or dropped to 1000(including 1000 to 1000)
+    if (
+      previousMatch.skillLevel - currentMatch.skillLevel >= 300 ||
+      currentMatch === 1000
+    ) {
+      // display to User
+    }
+  }
+
+  const getRecentTeammatesAndEnemies = (games) => {
     const team = [];
     const enemy = [];
     games.forEach((game) => {
@@ -29,8 +45,6 @@ const AdminDetailsPage = () => {
       enemy.push({ gameId: id, enemy: enemyIds });
     });
     return [team, enemy];
-    
-  
   };
 
   const getNewGames = (recentGames, leetifyGames) => {
