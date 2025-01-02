@@ -8,47 +8,107 @@ const AdminDetailsPage = () => {
   const router = useRouter();
   const { steamid, name } = router.query; 
   const [activeTab, setActiveTab] = useState("recentGames");
-  const [recentGames, setRecentGames] = useState([]);
+  // const [recentGames, setRecentGames] = useState([]);
   const [bannedPlayers, setBannedPlayers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [leetifyGames, setLeetifyGames] = useState([]);
+  // const [leetifyGames, setLeetifyGames] = useState([]);
 
-  const handleFetchRecentGames = async () => {
+  const [comparisonResults, setComparisonResults] = useState(null);
+
+
+  // const handleFetchRecentGames = async () => {
+  //   setLoading(true);
+  //   setError(null);
+  //   try {
+  //     const response = await fetchRecentGames(steamid); 
+  //     if (response.success && response.gameData) {
+  //       setRecentGames([response.gameData]);
+  //     } else {
+  //       setError(response.message || "Failed to retrieve game data");
+  //     }
+  //   } catch (error) {
+  //     setError("An error occurred while fetching recent games.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+
+  // const handleFetchLeetifyGames = async () => {
+  //   setLoading(true);
+  //   setError(null);
+  //   try {
+  //     const response = await fetchLeetifyGames(steamid);
+  //     if (response.games) {
+  //       setLeetifyGames(response.games.slice(0, 3));
+  //     } else {
+  //       setError(response.message || "Failed to retrieve game data");
+  //     }
+  //   } catch (error) {
+  //     setError("An error occurred while fetching recent games.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  const compareGames = (recentGames, leetifyGames) => {
+    const targetGameId = recentGames.gameId;
+    console.log("targetgameid--->", targetGameId)
+    if (!targetGameId) {
+      return []; 
+    }
+
+    
+    const index = leetifyGames.findIndex((el) => el.gameId === targetGameId);
+
+    // if nothing match, return first 10 games
+    if (index === -1) {
+      return leetifyGames.slice(0, 10);
+    }
+
+    return leetifyGames.slice(0, index);
+  };
+
+  
+  const handleFetchAndCompareGames = async () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetchRecentGames(steamid); 
-      if (response.success && response.gameData) {
-        setRecentGames([response.gameData]);
+      const [recentGamesResponse, leetifyGamesResponse] = await Promise.all([
+        fetchRecentGames(steamid),
+        fetchLeetifyGames(steamid),
+      ]);
+
+      if (
+        recentGamesResponse.success &&
+        recentGamesResponse.gameData &&
+        leetifyGamesResponse.games
+      ) {
+        const comparisonResult = compareGames(
+          recentGamesResponse.gameData,
+          leetifyGamesResponse.games
+        );
+
+        // 更新状态，存储比较结果
+        setComparisonResults(comparisonResult);
       } else {
-        setError(response.message || "Failed to retrieve game data");
+        setError("Failed to retrieve or compare game data.");
       }
     } catch (error) {
-      setError("An error occurred while fetching recent games.");
+      setError("An error occurred while fetching or comparing game data.");
     } finally {
       setLoading(false);
     }
   };
 
 
-  const handleFetchLeetifyGames = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await fetchLeetifyGames(steamid);
-      if (response.games) {
-        setLeetifyGames([response.games]);
-      } else {
-        setError(response.message || "Failed to retrieve game data");
-      }
-    } catch (error) {
-      setError("An error occurred while fetching recent games.");
-    } finally {
-      setLoading(false);
-    }
-  };
 
+  useEffect(() => {
+    // console.log("leetifyGames--->",leetifyGames);
+    // console.log("gameData--->", recentGames);
+    console.log("comparison result--->", comparisonResults)
+  })
 
   // const handleFetchBannedPlayers = async () => {
   //   setLoading(true);
@@ -68,13 +128,13 @@ const AdminDetailsPage = () => {
         <div className="flex justify-center space-x-4 mb-6">
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-            onClick={handleFetchRecentGames}
+            onClick={handleFetchAndCompareGames}
           >
             Get Recent Games
           </button>
           <button
             className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-            onClick={handleFetchLeetifyGames}
+            onClick={() => {}}
           >
             Get Banned Players
           </button>
@@ -112,40 +172,42 @@ const AdminDetailsPage = () => {
           </nav>
         </div>
 
-        {activeTab === "recentGames" && recentGames.length > 0 && (
-          <table className="min-w-full divide-y divide-gray-200 bg-white shadow-md rounded-lg mt-6">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Map Name
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Match Result
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  K/D
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  GameFinishedAt
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {recentGames.map((game, index) => (
-                <tr key={index}>
-                  <td className="px-6 py-4">{game.mapName}</td>
-                  <td className="px-6 py-4">{game.matchResult}</td>
-                  <td className="px-6 py-4">
-                    {game.kills} / {game.deaths}
-                  </td>
-                  <td className="px-6 py-4">
-                    {new Date(game.gameFinishedAt).toLocaleString()}
-                  </td>
+        {activeTab === "recentGames" &&
+          comparisonResults &&
+          comparisonResults.length > 0 && (
+            <table className="min-w-full divide-y divide-gray-200 bg-white shadow-md rounded-lg mt-6">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    Map Name
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    Match Result
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    K/D
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    GameFinishedAt
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {comparisonResults.map((game, index) => (
+                  <tr key={index}>
+                    <td className="px-6 py-4">{game.mapName}</td>
+                    <td className="px-6 py-4">{game.matchResult}</td>
+                    <td className="px-6 py-4">
+                      {game.kills} / {game.deaths}
+                    </td>
+                    <td className="px-6 py-4">
+                      {new Date(game.gameFinishedAt).toLocaleString()}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
 
         {activeTab === "bannedPlayers" && bannedPlayers.length > 0 && (
           <table className="min-w-full divide-y divide-gray-200 bg-white shadow-md rounded-lg mt-6">
