@@ -14,19 +14,23 @@ const AdminDetailsPage = () => {
   const [error, setError] = useState(null);
   const [newGames, setNewGames] = useState(null);
 
-  const getBannedPlayers = (games) => {
+  const getRecentTeammatesAndEnemies= (games) => {
+    const team = [];
+    const enemy = [];
     games.forEach((game) => {
       const teammateIds = game.ownTeamSteam64Ids.filter(
         (el) => !ADMINS_STEAMID.includes(el)
       );
-      let key = game.gameId.slice(-6);
-      const team = { [key]: teammateIds };
 
+      let id = game.gameId.slice(-6);
+
+      team.push({ gameId: id, teammate: teammateIds });
       const enemyIds = game.enemyTeamSteam64Ids;
-      const enemy = { [key]: game.enemyTeamSteam64Ids };
-      console.log("teammateIds", team);
-      console.log("enemyIds", enemy);
+      enemy.push({ gameId: id, enemy: enemyIds });
     });
+    return [team, enemy];
+    
+  
   };
 
   const getNewGames = (recentGames, leetifyGames) => {
@@ -48,7 +52,11 @@ const AdminDetailsPage = () => {
   };
 
   const handleClickBannedPlayers = () => {
-    getBannedPlayers(newGames);
+    const team = getRecentTeammatesAndEnemies(newGames)[0];
+    const enemy = getRecentTeammatesAndEnemies(newGames)[1];
+
+    console.log("team", team);
+    console.log("enemy", enemy);
   };
 
   const handleFetchAndCompareGames = async () => {
