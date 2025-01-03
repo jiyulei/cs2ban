@@ -38,22 +38,22 @@ const AdminDetailsPage = () => {
     return false;
   };
 
-  const getRecentTeammatesAndEnemies = (games) => {
-    const team = [];
-    const enemy = [];
-    games.forEach((game) => {
-      const teammateIds = game.ownTeamSteam64Ids.filter(
-        (el) => !ADMINS_STEAMID.includes(el)
-      );
+  // const getRecentTeammatesAndEnemies = (games) => {
+  //   const team = [];
+  //   const enemy = [];
+  //   games.forEach((game) => {
+  //     const teammateIds = game.ownTeamSteam64Ids.filter(
+  //       (el) => !ADMINS_STEAMID.includes(el)
+  //     );
 
-      let id = game.gameId.slice(-6);
+  //     let id = game.gameId.slice(-6);
 
-      team.push({ gameId: id, teammate: teammateIds });
-      const enemyIds = game.enemyTeamSteam64Ids;
-      enemy.push({ gameId: id, enemy: enemyIds });
-    });
-    return { team, enemy };
-  };
+  //     team.push({ gameId: id, teammate: teammateIds });
+  //     const enemyIds = game.enemyTeamSteam64Ids;
+  //     enemy.push({ gameId: id, enemy: enemyIds });
+  //   });
+  //   return { team, enemy };
+  // };
 
   const getNewGames = (recentGames, leetifyGames) => {
     // Todo: match only last 6 digits
@@ -73,11 +73,12 @@ const AdminDetailsPage = () => {
     return leetifyGames.slice(0, index + 1);
   };
 
-  const handleClickBannedPlayers = () => {
-    const { team, enemy } = getRecentTeammatesAndEnemies(newGames);
-
-    console.log("team", team);
-    console.log("enemy", enemy);
+  const handleClickBannedPlayers = (game) => {
+    // const { team, enemy } = getRecentTeammatesAndEnemies(newGames);
+    const teammates = game.ownTeamSteam64Ids.filter((id) => !ADMINS_STEAMID.includes(id));
+    console.log("game", game);
+    // console.log("team", team);
+    // console.log("enemy", enemy);
   };
 
   const handleFetchAndCompareGames = async () => {
@@ -137,7 +138,7 @@ const AdminDetailsPage = () => {
 
       {/* Tabs */}
       <div className="max-w-4xl mx-auto bg-white shadow rounded-lg p-6">
-        <div className="flex justify-center border-b border-gray-200 pb-4">
+        <div className="flex justify-center border-b border-gray-200 ">
           <nav className="flex space-x-4" aria-label="Tabs">
             <button
               className={`text-sm font-medium px-4 py-2 border-b-2 ${
@@ -178,7 +179,9 @@ const AdminDetailsPage = () => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                   Game Finished At
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"></th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Get Banned Players
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -193,12 +196,23 @@ const AdminDetailsPage = () => {
                     {new Date(game.gameFinishedAt).toLocaleString()}
                   </td>
                   <td className="px-6 py-4">
-                    <button
-                      className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-                      onClick={handleClickBannedPlayers}
-                    >
-                      Get Banned Players
-                    </button>
+                    <div className="flex space-x-2">
+                      {/* Get Banned Players 按钮 */}
+                      <button
+                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                        onClick={() => handleClickBannedPlayers(game)}
+                      >
+                        Teammates
+                      </button>
+
+                      {/* Get Enemy 按钮 */}
+                      <button
+                        className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                        onClick={() => {}}
+                      >
+                        Enemies
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
