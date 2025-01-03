@@ -15,17 +15,20 @@ const AdminDetailsPage = () => {
   const [newGames, setNewGames] = useState(null);
 
   const eloCheck = (gameId, games) => {
-    const matchedIndex = games.findIndex(el => el.gameId = gameId);
-    const [currentMatch, previousMatch] = games.slice(matchedIndex, matchedIndex + 2);
+    const matchedIndex = games.findIndex((el) => el.gameId === gameId);
+    const [currentMatch, previousMatch] = games.slice(
+      matchedIndex,
+      matchedIndex + 2
+    );
     // no skillLevel & loss
     if (previousMatch.skillLevel === 0 && currentMatch.skillLevel === 0) {
       // display to user
       return true;
     }
-  
+
     // losing 300+ or dropping to 1000 (including 1000 -> 1000)
     if (
-      (previousMatch.skillLevel - currentMatch.skillLevel) >= 300 ||
+      previousMatch.skillLevel - currentMatch.skillLevel >= 300 ||
       currentMatch.skillLevel === 1000
     ) {
       // display to User
@@ -33,8 +36,7 @@ const AdminDetailsPage = () => {
     }
 
     return false;
-
-  }
+  };
 
   const getRecentTeammatesAndEnemies = (games) => {
     const team = [];
@@ -50,7 +52,7 @@ const AdminDetailsPage = () => {
       const enemyIds = game.enemyTeamSteam64Ids;
       enemy.push({ gameId: id, enemy: enemyIds });
     });
-    return [team, enemy];
+    return { team, enemy };
   };
 
   const getNewGames = (recentGames, leetifyGames) => {
@@ -72,10 +74,7 @@ const AdminDetailsPage = () => {
   };
 
   const handleClickBannedPlayers = () => {
-    const team = getRecentTeammatesAndEnemies(newGames)[0];
-    const enemy = getRecentTeammatesAndEnemies(newGames)[1];
-
-    
+    const { team, enemy } = getRecentTeammatesAndEnemies(newGames);
 
     console.log("team", team);
     console.log("enemy", enemy);
@@ -114,33 +113,27 @@ const AdminDetailsPage = () => {
 
   useEffect(() => {
     console.log("comparison result--->", newGames);
-  });
+  }, [newGames]);
 
   return (
     <div className="p-6 bg-gray-200 min-h-screen">
+      {/* Loading / Error  */}
+      {loading && <p className="text-center text-blue-500">Loading...</p>}
+      {error && <p className="text-center text-red-500">{error}</p>}
+
       <h1 className="text-2xl font-bold mb-6 text-center">Admin: {name}</h1>
       <p className="text-center text-gray-500 mb-8">SteamID: {steamid}</p>
 
       <div>
-        <div className="flex justify-center space-x-4 mb-6">
+        <div className="flex justify-center mb-6">
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
             onClick={handleFetchAndCompareGames}
           >
             Get Recent Games
           </button>
-          <button
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-            onClick={handleClickBannedPlayers}
-          >
-            Get Banned Players
-          </button>
         </div>
       </div>
-
-      {/* Loading / Error  */}
-      {loading && <p className="text-center text-blue-500">Loading...</p>}
-      {error && <p className="text-center text-red-500">{error}</p>}
 
       {/* Tabs */}
       <div className="max-w-4xl mx-auto bg-white shadow rounded-lg p-6">
@@ -180,11 +173,12 @@ const AdminDetailsPage = () => {
                   Match Result
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  K/D
+                  K / D
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  GameFinishedAt
+                  Game Finished At
                 </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"></th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -197,6 +191,14 @@ const AdminDetailsPage = () => {
                   </td>
                   <td className="px-6 py-4">
                     {new Date(game.gameFinishedAt).toLocaleString()}
+                  </td>
+                  <td className="px-6 py-4">
+                    <button
+                      className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                      onClick={handleClickBannedPlayers}
+                    >
+                      Get Banned Players
+                    </button>
                   </td>
                 </tr>
               ))}
