@@ -20,14 +20,20 @@ const AdminDetailsPage = () => {
     // no skillLevel & loss
     if (previousMatch.skillLevel === 0 && currentMatch.skillLevel === 0) {
       // display to user
+      return true;
     }
-    // losing 300+ elo or dropped to 1000(including 1000 to 1000)
+  
+    // losing 300+ or dropping to 1000 (including 1000 -> 1000)
     if (
-      previousMatch.skillLevel - currentMatch.skillLevel >= 300 ||
-      currentMatch === 1000
+      (previousMatch.skillLevel - currentMatch.skillLevel) >= 300 ||
+      currentMatch.skillLevel === 1000
     ) {
       // display to User
+      return true;
     }
+
+    return false;
+
   }
 
   const getRecentTeammatesAndEnemies = (games) => {
@@ -68,6 +74,8 @@ const AdminDetailsPage = () => {
   const handleClickBannedPlayers = () => {
     const team = getRecentTeammatesAndEnemies(newGames)[0];
     const enemy = getRecentTeammatesAndEnemies(newGames)[1];
+
+    
 
     console.log("team", team);
     console.log("enemy", enemy);
