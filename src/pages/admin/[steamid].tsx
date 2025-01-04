@@ -13,6 +13,7 @@ const AdminDetailsPage = () => {
   const [error, setError] = useState(null);
   const [newGames, setNewGames] = useState(null);
   const [bannedTeammates, setBannedTeammates] = useState([]);
+  const [bannedEnemies, setBannedEnemies] = useState([]);
 
   const eloCheck = (gameId, games) => {
     const matchedIndex = games.findIndex(
@@ -56,6 +57,36 @@ const AdminDetailsPage = () => {
     }
     // Todo: Change this to slice(0, index)
     return leetifyGames.slice(0, index + 1);
+  };
+
+  const handleClickEnemies = async (game) => {
+    const enemyIds = game.enemyTeamSteam64Ids;
+    const gameId = game.gameId.slice(-6);
+
+    console.log("game", game);
+    console.log("enemy", enemyIds);
+
+     const result = await Promise.all(
+       enemyIds.map(async (id) => {
+         const leetifyResponse = await fetchLeetifyGames(id);
+         if (leetifyResponse.games && eloCheck(gameId, leetifyResponse.games)) {
+           return id;
+         }
+         return null;
+       })
+     );
+
+     const bannedIds = result.filter((id) => id !== null);
+
+     console.log("banned enemies", bannedIds);
+     // update state
+     if (bannedIds.length > 0) {
+       const updatedEnemies = [
+         ...bannedTeammates,
+         { gameId: gameId, teammates: bannedIds },
+       ];
+       setBannedEnemies(updatedEnemies);;
+     }
   };
 
   const handleClickTeammates = async (game) => {
@@ -127,6 +158,10 @@ const AdminDetailsPage = () => {
   useEffect(() => {
     console.log("state", bannedTeammates);
   }, [bannedTeammates]);
+
+   useEffect(() => {
+     console.log("state", bannedEnemies);
+   }, [bannedEnemies]);
 
   return (
     <div className="p-6 bg-gray-200 min-h-screen">
@@ -220,7 +255,7 @@ const AdminDetailsPage = () => {
                       {/* Get Enemy 按钮 */}
                       <button
                         className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-                        onClick={() => {}}
+                        onClick={() => handleClickEnemies(game)}
                       >
                         Enemies
                       </button>
