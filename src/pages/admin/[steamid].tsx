@@ -307,11 +307,11 @@ const AdminDetailsPage = () => {
         )}
 
         {activeTab === "bannedTeammates" && bannedTeammates.length > 0 && (
-          <BannedPlayerTable />
+          <BannedPlayerTable players={bannedTeammates} />
         )}
 
         {activeTab === "bannedEnemies" && bannedEnemies.length > 0 && (
-          <BannedPlayerTable />
+          <BannedPlayerTable players={bannedEnemies} />
         )}
       </div>
     </div>
