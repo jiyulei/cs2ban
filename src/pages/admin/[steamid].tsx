@@ -59,64 +59,83 @@ const AdminDetailsPage = () => {
     return leetifyGames.slice(0, index + 1);
   };
 
-  const handleClickEnemies = async (game) => {
-    const enemyIds = game.enemyTeamSteam64Ids;
-    const gameId = game.gameId.slice(-6);
-
-    console.log("game", game);
-    console.log("enemy", enemyIds);
-
-     const result = await Promise.all(
-       enemyIds.map(async (id) => {
-         const leetifyResponse = await fetchLeetifyGames(id);
-         if (leetifyResponse.games && eloCheck(gameId, leetifyResponse.games)) {
-           return id;
-         }
-         return null;
-       })
-     );
-
-     const bannedIds = result.filter((id) => id !== null);
-
-     console.log("banned enemies", bannedIds);
-     // update state
-     if (bannedIds.length > 0) {
-       const updatedEnemies = [
-         ...bannedTeammates,
-         { gameId: gameId, teammates: bannedIds },
-       ];
-       setBannedEnemies(updatedEnemies);;
-     }
-  };
-
   const handleClickTeammates = async (game) => {
+    setLoading(true);
     const teammateIds = game.ownTeamSteam64Ids.filter(
       (id) => !ADMINS_STEAMID.includes(id)
     );
     const gameId = game.gameId.slice(-6);
 
-    console.log("game", game);
-    console.log("team", teammateIds);
-    const result = await Promise.all(
-      teammateIds.map(async (id) => {
-        const leetifyResponse = await fetchLeetifyGames(id);
-        if (leetifyResponse.games && eloCheck(gameId, leetifyResponse.games)) {
-          return id;
-        }
-        return null;
-      })
-    );
+    try {
+      console.log("game", game);
+      console.log("team", teammateIds);
+      const result = await Promise.all(
+        teammateIds.map(async (id) => {
+          const leetifyResponse = await fetchLeetifyGames(id);
+          if (
+            leetifyResponse.games &&
+            eloCheck(gameId, leetifyResponse.games)
+          ) {
+            return id;
+          }
+          return null;
+        })
+      );
 
-    const bannedIds = result.filter((id) => id !== null);
+      const bannedIds = result.filter((id) => id !== null);
 
-    console.log("banned Teammates", bannedIds);
-    // update state
-    if (bannedIds.length > 0) {
-      const updatedTeammates = [
-        ...bannedTeammates,
-        { gameId: gameId, teammates: bannedIds },
-      ];
-      setBannedTeammates(updatedTeammates);
+      console.log("banned Teammates", bannedIds);
+
+      if (bannedIds.length > 0) {
+        const updatedTeammates = [
+          ...bannedTeammates,
+          { gameId: gameId, teammates: bannedIds },
+        ];
+        setBannedTeammates(updatedTeammates);
+      }
+    } catch (error) {
+      console.error("Error fetching teammates:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleClickEnemies = async (game) => {
+    setLoading(true);
+    const enemyIds = game.enemyTeamSteam64Ids;
+    const gameId = game.gameId.slice(-6);
+
+    try {
+      console.log("game", game);
+      console.log("enemy", enemyIds);
+      const result = await Promise.all(
+        enemyIds.map(async (id) => {
+          const leetifyResponse = await fetchLeetifyGames(id);
+          if (
+            leetifyResponse.games &&
+            eloCheck(gameId, leetifyResponse.games)
+          ) {
+            return id;
+          }
+          return null;
+        })
+      );
+
+      const bannedIds = result.filter((id) => id !== null);
+
+      console.log("banned enemies", bannedIds);
+
+      if (bannedIds.length > 0) {
+        const updatedEnemies = [
+          ...bannedEnemies,
+          { gameId: gameId, teammates: bannedIds },
+        ];
+        setBannedEnemies(updatedEnemies);
+      }
+    } catch (error) {
+      console.error("Error fetching enemies:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -159,9 +178,9 @@ const AdminDetailsPage = () => {
     console.log("state", bannedTeammates);
   }, [bannedTeammates]);
 
-   useEffect(() => {
-     console.log("state", bannedEnemies);
-   }, [bannedEnemies]);
+  useEffect(() => {
+    console.log("state", bannedEnemies);
+  }, [bannedEnemies]);
 
   return (
     <div className="p-6 bg-gray-200 min-h-screen">
@@ -244,20 +263,28 @@ const AdminDetailsPage = () => {
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex space-x-2">
-                      {/* Get Banned Players 按钮 */}
                       <button
-                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                        className={`px-4 py-2 rounded ${
+                          loading
+                            ? "bg-gray-500 text-white cursor-not-allowed"
+                            : "bg-green-500 text-white hover:bg-green-600"
+                        }`}
                         onClick={() => handleClickTeammates(game)}
+                        disabled={loading}
                       >
-                        Teammates
+                        {loading ? "Loading..." : "Teammates"}
                       </button>
 
-                      {/* Get Enemy 按钮 */}
                       <button
-                        className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                        className={`px-4 py-2 rounded ${
+                          loading
+                            ? "bg-gray-500 text-white cursor-not-allowed"
+                            : "bg-red-500 text-white hover:bg-red-600"
+                        }`}
                         onClick={() => handleClickEnemies(game)}
+                        disabled={loading}
                       >
-                        Enemies
+                        {loading ? "Loading..." : "Enemies"}
                       </button>
                     </div>
                   </td>
