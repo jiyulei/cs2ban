@@ -90,7 +90,11 @@ const AdminDetailsPage = () => {
       if (bannedIds.length > 0) {
         const updatedTeammates = [
           ...bannedTeammates,
-          { gameId: gameId, teammates: bannedIds },
+          {
+            gameId: gameId,
+            teammates: bannedIds,
+            date: game.gameFinishedAt,
+          },
         ];
         setBannedTeammates(updatedTeammates);
       }
@@ -129,7 +133,11 @@ const AdminDetailsPage = () => {
       if (bannedIds.length > 0) {
         const updatedEnemies = [
           ...bannedEnemies,
-          { gameId: gameId, teammates: bannedIds },
+          {
+            gameId: gameId,
+            teammates: bannedIds,
+            date: game.gameFinishedAt,
+          },
         ];
         setBannedEnemies(updatedEnemies);
       }

@@ -39,6 +39,12 @@ const BannedPlayerTable = ({ players }) => {
                 <tr key={`${index}-${subIndex}`}>
                   <td className="px-6 py-4">{entry.gameId}</td>
                   <td className="px-6 py-4">{teammate}</td>
+                  <td className="px-6 py-4"></td>
+                  <td className="px-6 py-4"></td>
+                  <td className="px-6 py-4"></td>
+                  <td className="px-6 py-4">
+                    {new Date(entry.date).toLocaleString()}
+                  </td>
                 </tr>
               ))
             )}
