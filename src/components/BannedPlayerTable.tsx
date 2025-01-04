@@ -96,7 +96,7 @@ const BannedPlayerTable = ({ players }) => {
                   <td className="px-6 py-4">{teammate}</td>
                   <td className="px-6 py-4">
                     <Dropdown
-                      options={["Cheating", "Toxic Behavior", "Other"]}
+                      options={["Gun", "Molotov", "Knife", "Team Rage", "Grenade", "Zeus", "Suicide", "AFK", "VAC"]}
                       onSelect={(value) =>
                         handleFieldChange(teammate, "banReason", value)
                       }
