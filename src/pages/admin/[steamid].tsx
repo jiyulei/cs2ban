@@ -80,11 +80,13 @@ const AdminDetailsPage = () => {
 
     console.log("banned Teammates", bannedIds);
     // update state
-    const updatedTeammates = [
-      ...bannedTeammates,
-      { gameId: gameId, teammates: bannedIds },
-    ];
-    setBannedTeammates(updatedTeammates);
+    if (bannedIds.length > 0) {
+      const updatedTeammates = [
+        ...bannedTeammates,
+        { gameId: gameId, teammates: bannedIds },
+      ];
+      setBannedTeammates(updatedTeammates);
+    }
   };
 
   const handleFetchAndCompareGames = async () => {
