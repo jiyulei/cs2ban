@@ -2,49 +2,61 @@ import React, { useState } from "react";
 import Dropdown from "./Dropdown";
 
 const BannedPlayerTable = ({ players }) => {
+  const [localState, setLocalState] = useState(
+    players.reduce((acc, entry) => {
+      entry.teammates.forEach((teammate) => {
+        acc[teammate] = { banReason: "", ratingReduced: "", banDuration: "" };
+      });
+      return acc;
+    }, {})
+  );
+
+  const handleFieldChange = (teammate, field, value) => {
+    setLocalState((prev) => ({
+      ...prev,
+      [teammate]: {
+        ...prev[teammate],
+        [field]: value,
+      },
+    }));
+  };
+
+  const handleAddToDatabase = async (entry, teammate) => {
     // Todo: update this function
-    const handleAddToDatabase = async (
-      entry,
+    const { banReason, ratingReduced, banDuration } = localState[teammate];
+    if (!banReason || !ratingReduced || !banDuration) {
+      console.error("All fields are required");
+      return;
+    }
+
+    const newEntry = {
+      name: entry.name,
+      steamURL: entry.steamURL,
+      timesBanned: entry.timesBanned || 1,
       banReason,
       ratingReduced,
-      banDuration
-    ) => {
-      const newEntry = {
-        name: entry.name,
-        steamURL: entry.steamURL,
-        timesBanned: entry.timesBanned || 1,
-        banReason,
-        ratingReduced,
-        banDuration,
-        date: new Date().toISOString(),
-      };
-
-      try {
-        const response = await fetch("/api/addBanEntry", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newEntry),
-        });
-
-        if (response.ok) {
-          console.log("Successfully added to database");
-        } else {
-          console.error("Failed to add to database");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
+      banDuration,
+      date: new Date().toISOString(),
     };
 
-  const [banReason, setBanReason] = useState("");
-  const [ratingReduced, setRatingReduced] = useState("");
-  const [banDuration, setBanDuration] = useState("");
+    try {
+      const response = await fetch("/api/addBanEntry", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newEntry),
+      });
 
-  const handleReasonSelect = (reason) => setBanReason(reason);
-  const handleRatingSelect = (rating) => setRatingReduced(rating);
-  const handleDurationSelect = (duration) => setBanDuration(duration);
+      if (response.ok) {
+        console.log("Successfully added to database");
+      } else {
+        console.error("Failed to add to database");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   return (
     <div className="mt-6">
@@ -69,7 +81,7 @@ const BannedPlayerTable = ({ players }) => {
                 Rating Reduced
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                Ban Duration
+                Ban Duration(h)
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                 Add
@@ -77,41 +89,57 @@ const BannedPlayerTable = ({ players }) => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {players.map((entry, index) =>
-              entry.teammates.map((teammate, subIndex) => (
-                <tr key={`${index}-${subIndex}`}>
+            {players.map((entry) =>
+              entry.teammates.map((teammate) => (
+                <tr key={teammate}>
                   <td className="px-6 py-4">{entry.gameId}</td>
                   <td className="px-6 py-4">{teammate}</td>
                   <td className="px-6 py-4">
                     <Dropdown
                       options={["Cheating", "Toxic Behavior", "Other"]}
-                      onSelect={handleReasonSelect}
+                      onSelect={(value) =>
+                        handleFieldChange(teammate, "banReason", value)
+                      }
+                      defaultValue={localState[teammate]?.banReason || "Select"}
                     />
                   </td>
                   <td className="px-6 py-4">
                     <Dropdown
-                      options={["100", "200", "300"]}
-                      onSelect={handleRatingSelect}
+                      options={["0", "1000"]}
+                      onSelect={(value) =>
+                        handleFieldChange(teammate, "ratingReduced", value)
+                      }
+                      defaultValue={
+                        localState[teammate]?.ratingReduced || "Select"
+                      }
                     />
                   </td>
                   <td className="px-6 py-4">
                     <Dropdown
-                      options={["1 day", "7 days", "Permanent"]}
-                      onSelect={handleDurationSelect}
+                      options={["0.5", "2", "24", "168"]}
+                      onSelect={(value) =>
+                        handleFieldChange(teammate, "banDuration", value)
+                      }
+                      defaultValue={
+                        localState[teammate]?.banDuration || "Select"
+                      }
                     />
                   </td>
                   <td className="px-6 py-4">
                     <button
-                      className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                      onClick={() =>
-                        handleAddToDatabase(
-                          entry,
-                          banReason,
-                          ratingReduced,
-                          banDuration
-                        )
+                      className={`bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 ${
+                        !localState[teammate]?.banReason ||
+                        !localState[teammate]?.ratingReduced ||
+                        !localState[teammate]?.banDuration
+                          ? "opacity-50 cursor-not-allowed"
+                          : ""
+                      }`}
+                      onClick={() => handleAddToDatabase(entry, teammate)}
+                      disabled={
+                        !localState[teammate]?.banReason ||
+                        !localState[teammate]?.ratingReduced ||
+                        !localState[teammate]?.banDuration
                       }
-                      disabled={!banReason || !ratingReduced || !banDuration}
                     >
                       Add
                     </button>
