@@ -17,6 +17,12 @@ type PlayerInfo = {
   profileurl?: string;
 };
 
+type Entry = {
+  gameId: string;
+  date: string;
+  teammates: string[];
+};
+
 const BannedTeammateTable = ({ players }: Props) => {
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -57,7 +63,11 @@ const BannedTeammateTable = ({ players }: Props) => {
     fetchPlayerNames();
   }, [players]);
 
-  const handleFieldChange = (teammate, field, value) => {
+  const handleFieldChange = (
+    teammate: string,
+    field: string,
+    value: string | number
+  ) => {
     setLocalState((prev) => ({
       ...prev,
       [teammate]: {
@@ -67,7 +77,7 @@ const BannedTeammateTable = ({ players }: Props) => {
     }));
   };
 
-  const handleAddToDatabase = async (entry, teammate) => {
+  const handleAddToDatabase = async (entry: Entry, teammate: string) => {
     const { banReason, ratingReduced, banDuration } = localState[teammate];
     if (!banReason || ratingReduced === undefined || !banDuration) {
       console.error("All fields are required");

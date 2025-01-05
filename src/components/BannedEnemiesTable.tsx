@@ -3,6 +3,13 @@ import Dropdown from "./Dropdown";
 import { getSteamUserInfo } from "../utils/getSteamUserInfo";
 import { addBanlist } from "../utils/addBanlist";
 import type { Enemies } from "../types/types";
+
+type Entry = {
+  gameId: string;
+  date: string;
+  teammates: string[];
+};
+
 type PlayerInfo = {
   steamid: string;
   personaname?: string;
@@ -11,7 +18,6 @@ type PlayerInfo = {
   avatarmedium?: string;
   profileurl?: string;
 };
-
 
 type Props = {
   players: Enemies[];
@@ -50,13 +56,12 @@ const BannedEnemiesTable = ({ players }: Props) => {
         );
         setPlayerNames(namesMap);
       }
-
     };
 
     fetchPlayerNames();
   }, [players]);
 
-  const handleFieldChange = (enemy, field, value) => {
+  const handleFieldChange = (enemy: string, field: string, value: string | number) => {
     setLocalState((prev) => ({
       ...prev,
       [enemy]: {
@@ -66,7 +71,7 @@ const BannedEnemiesTable = ({ players }: Props) => {
     }));
   };
 
-  const handleAddToDatabase = async (entry, enemy) => {
+  const handleAddToDatabase = async (entry: Entry, enemy: string) => {
     const { banReason, ratingReduced, banDuration } = localState[enemy];
     if (!banReason || ratingReduced === undefined || !banDuration) {
       console.error("All fields are required");
