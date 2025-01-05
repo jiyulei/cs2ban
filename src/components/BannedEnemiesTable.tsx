@@ -123,13 +123,12 @@ const BannedEnemiesTable = ({ players }) => {
                         "Gun",
                         "Molotov",
                         "Knife",
-                        "Team Rage",
+                        "Enemy Rage",
                         "Grenade",
                         "Zeus",
                         "Suicide",
                         "AFK",
                         "VAC",
-                        "Transformers",
                       ]}
                       onSelect={(value) =>
                         handleFieldChange(enemy, "banReason", value)
