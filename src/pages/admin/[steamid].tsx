@@ -4,7 +4,8 @@ import { fetchRecentGames } from "../../utils/fetchLatestGame";
 import { fetchBannedPlayers } from "../../utils/fetchBannedPlayers";
 import { fetchLeetifyGames } from "../../utils/fetchLeetifyGames";
 import { ADMINS_STEAMID } from "../../utils/constants";
-import BannedPlayerTable from "../../components/BannedPlayerTable";
+import BannedEnemiesTable from "../../components/BannedEnemiesTable";
+import BannedTeammateTable from "../../components/BannedTeammateTable";
 
 const AdminDetailsPage = () => {
   const router = useRouter();
@@ -86,16 +87,27 @@ const AdminDetailsPage = () => {
       const bannedIds = result.filter((id) => id !== null);
 
       console.log("banned Teammates", bannedIds);
-
       if (bannedIds.length > 0) {
-        const updatedTeammates = [
-          ...bannedTeammates,
-          {
+        const updatedTeammates = [...bannedTeammates];
+
+        const existingEntryIndex = updatedTeammates.findIndex(
+          (entry) => entry.gameId === gameId
+        );
+
+        if (existingEntryIndex !== -1) {
+          updatedTeammates[existingEntryIndex].teammates = [
+            ...new Set([
+              ...updatedTeammates[existingEntryIndex].teammates,
+              ...bannedIds,
+            ]),
+          ];
+        } else {
+          updatedTeammates.push({
             gameId: gameId,
             teammates: bannedIds,
             date: game.gameFinishedAt,
-          },
-        ];
+          });
+        }
         setBannedTeammates(updatedTeammates);
       }
     } catch (error) {
@@ -131,14 +143,26 @@ const AdminDetailsPage = () => {
       console.log("banned enemies", bannedIds);
 
       if (bannedIds.length > 0) {
-        const updatedEnemies = [
-          ...bannedEnemies,
-          {
+        const updatedEnemies = [...bannedEnemies];
+        const existingEntryIndex = updatedEnemies.findIndex(
+          (entry) => entry.gameId === gameId
+        );
+
+        if (existingEntryIndex !== -1) {
+          updatedEnemies[existingEntryIndex].enemies = [
+            ...new Set([
+              ...updatedEnemies[existingEntryIndex].enemies,
+              ...bannedIds,
+            ]),
+          ];
+        } else {
+          updatedEnemies.push({
             gameId: gameId,
-            teammates: bannedIds,
+            enemies: bannedIds,
             date: game.gameFinishedAt,
-          },
-        ];
+          });
+        }
+
         setBannedEnemies(updatedEnemies);
       }
     } catch (error) {
@@ -184,11 +208,11 @@ const AdminDetailsPage = () => {
   }, [newGames]);
 
   useEffect(() => {
-    console.log("state", bannedTeammates);
+    console.log("state bannedTeammates", bannedTeammates);
   }, [bannedTeammates]);
 
   useEffect(() => {
-    console.log("state", bannedEnemies);
+    console.log("state bannedEnemies", bannedEnemies);
   }, [bannedEnemies]);
 
   return (
@@ -315,11 +339,11 @@ const AdminDetailsPage = () => {
         )}
 
         {activeTab === "bannedTeammates" && bannedTeammates.length > 0 && (
-          <BannedPlayerTable players={bannedTeammates} />
+          <BannedTeammateTable players={bannedTeammates} />
         )}
 
         {activeTab === "bannedEnemies" && bannedEnemies.length > 0 && (
-          <BannedPlayerTable players={bannedEnemies} />
+          <BannedEnemiesTable players={bannedEnemies} />
         )}
       </div>
     </div>

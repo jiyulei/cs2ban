@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Dropdown from "./Dropdown";
 import { getSteamUserInfo } from "../utils/getSteamUserInfo";
 
-const BannedPlayerTable = ({ players }) => {
+const BannedTeammateTable = ({ players }) => {
   const [localState, setLocalState] = useState(
     players.reduce((acc, entry) => {
       entry.teammates.forEach((teammate) => {
@@ -12,30 +12,27 @@ const BannedPlayerTable = ({ players }) => {
     }, {})
   );
 
- const [playerNames, setPlayerNames] = useState({});
+  const [playerNames, setPlayerNames] = useState({});
 
- useEffect(() => {
-   // 提取所有 Steam IDs
-   const steamIDs = [
-     ...new Set(players.flatMap((entry) => entry.teammates)), // 去重
-   ];
-   console.log("STEAMiDS", steamIDs)
+  useEffect(() => {
+    const steamIDs = [
+      ...new Set(players.flatMap((entry) => entry.teammates)),
+    ];
+    console.log("STEAMiDS", steamIDs);
 
-   const fetchPlayerNames = async () => {
-     const playerInfo = await getSteamUserInfo(steamIDs);
-     if (playerInfo) {
-       // 创建 steamid 和 personaname 的映射
-       const namesMap = playerInfo.reduce((acc, player) => {
-         acc[player.steamid] = player.personaname || "Unknown"; // 默认名字为 Unknown
-         return acc;
-       }, {});
-       setPlayerNames(namesMap);
-     }
-   };
+    const fetchPlayerNames = async () => {
+      const playerInfo = await getSteamUserInfo(steamIDs);
+      if (playerInfo) {
+        const namesMap = playerInfo.reduce((acc, player) => {
+          acc[player.steamid] = player.personaname || "Unknown";
+          return acc;
+        }, {});
+        setPlayerNames(namesMap);
+      }
+    };
 
-   fetchPlayerNames();
- }, [players]);
-
+    fetchPlayerNames();
+  }, [players]);
 
   const handleFieldChange = (teammate, field, value) => {
     setLocalState((prev) => ({
@@ -134,6 +131,7 @@ const BannedPlayerTable = ({ players }) => {
                         "Suicide",
                         "AFK",
                         "VAC",
+                        "Transformers",
                       ]}
                       onSelect={(value) =>
                         handleFieldChange(teammate, "banReason", value)
@@ -143,7 +141,7 @@ const BannedPlayerTable = ({ players }) => {
                   </td>
                   <td className="px-6 py-4">
                     <Dropdown
-                      options={["0", "1000"]}
+                      options={[0, 1000]}
                       onSelect={(value) =>
                         handleFieldChange(teammate, "ratingReduced", value)
                       }
@@ -154,7 +152,7 @@ const BannedPlayerTable = ({ players }) => {
                   </td>
                   <td className="px-6 py-4">
                     <Dropdown
-                      options={["0.5", "2", "24", "168"]}
+                      options={[0.5, 2, 24, 168]}
                       onSelect={(value) =>
                         handleFieldChange(teammate, "banDuration", value)
                       }
@@ -192,4 +190,4 @@ const BannedPlayerTable = ({ players }) => {
   );
 };
 
-export default BannedPlayerTable;
+export default BannedTeammateTable;
