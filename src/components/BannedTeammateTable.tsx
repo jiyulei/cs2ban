@@ -4,6 +4,8 @@ import { getSteamUserInfo } from "../utils/getSteamUserInfo";
 import { addBanlist } from "../utils/addBanlist";
 
 const BannedTeammateTable = ({ players }) => {
+  const [successMessage, setSuccessMessage] = useState("");
+
   const [localState, setLocalState] = useState(
     players.reduce((acc, entry) => {
       entry.teammates.forEach((teammate) => {
@@ -57,15 +59,21 @@ const BannedTeammateTable = ({ players }) => {
       date: new Date().toISOString(),
       banDuration: parseFloat(banDuration),
       steamURL: `https://steamcommunity.com/profiles/${teammate}`,
-      gameId: entry.gameId
+      gameId: entry.gameId,
     };
 
     const result = await addBanlist(newEntry);
 
     if (result && result.success) {
       console.log("Successfully added to banlist");
+      setSuccessMessage(
+        `${playerNames[teammate]} has been successfully added to the banlist!`
+      );
     } else {
       console.error("Failed to add to banlist");
+      setSuccessMessage(
+        `Failed to add ${playerNames[teammate]} to the banlist.`
+      );
     }
   };
 
@@ -167,6 +175,18 @@ const BannedTeammateTable = ({ players }) => {
                     >
                       Add
                     </button>
+
+                    {successMessage && (
+                      <div className="fixed bottom-4 right-4 bg-green-500 text-white p-4 rounded shadow">
+                        {successMessage}
+                        <button
+                          className="ml-4 text-black bg-white rounded px-2 py-1"
+                          onClick={() => setSuccessMessage("")}
+                        >
+                          Close
+                        </button>
+                      </div>
+                    )}
                   </td>
                 </tr>
               ))

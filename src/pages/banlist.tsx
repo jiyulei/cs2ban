@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { fetchBanlist } from "../utils/fetchBanlist";
 
-
-
 const BanlistPage = () => {
 const getIconPath = (banReason) => {
   const basePath = "/icons"; // Path to your icons folder
