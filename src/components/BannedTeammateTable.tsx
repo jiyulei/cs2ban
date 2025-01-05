@@ -161,7 +161,7 @@ const BannedTeammateTable = ({ players }: Props) => {
                         "VAC",
                         "Transformers",
                       ]}
-                      onSelect={(value) =>
+                      onSelect={(value: string | number) =>
                         handleFieldChange(teammate, "banReason", value)
                       }
                       defaultValue={localState[teammate]?.banReason || "Select"}
@@ -170,7 +170,7 @@ const BannedTeammateTable = ({ players }: Props) => {
                   <td className="px-6 py-4">
                     <Dropdown
                       options={["0", "1000"]}
-                      onSelect={(value) =>
+                      onSelect={(value: string | number) =>
                         handleFieldChange(teammate, "ratingReduced", value)
                       }
                       defaultValue={
@@ -181,7 +181,7 @@ const BannedTeammateTable = ({ players }: Props) => {
                   <td className="px-6 py-4">
                     <Dropdown
                       options={["0.5", "2", "24", "168"]}
-                      onSelect={(value) =>
+                      onSelect={(value: string | number) =>
                         handleFieldChange(teammate, "banDuration", value)
                       }
                       defaultValue={

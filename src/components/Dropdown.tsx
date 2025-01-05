@@ -1,10 +1,20 @@
 import React, { useState } from "react";
 
-const Dropdown = ({ options, onSelect, defaultValue = "Select" }) => {
+type DropdownProps = {
+  options: string[];
+  onSelect: (value: string) => void;
+  defaultValue?: string;
+};
+
+const Dropdown: React.FC<DropdownProps> = ({
+  options,
+  onSelect,
+  defaultValue = "Select",
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(defaultValue);
 
-  const handleSelect = (option) => {
+  const handleSelect = (option: string) => {
     setSelectedOption(option);
     setIsOpen(false);
     onSelect(option);

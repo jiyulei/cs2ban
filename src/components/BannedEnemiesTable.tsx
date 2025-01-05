@@ -7,7 +7,7 @@ import type { Enemies } from "../types/types";
 type Entry = {
   gameId: string;
   date: string;
-  teammates: string[];
+  enemies: string[];
 };
 
 type PlayerInfo = {
@@ -148,7 +148,7 @@ const BannedEnemiesTable = ({ players }: Props) => {
                         "AFK",
                         "VAC",
                       ]}
-                      onSelect={(value) =>
+                      onSelect={(value: string) =>
                         handleFieldChange(enemy, "banReason", value)
                       }
                       defaultValue={localState[enemy]?.banReason || "Select"}
@@ -157,7 +157,7 @@ const BannedEnemiesTable = ({ players }: Props) => {
                   <td className="px-6 py-4">
                     <Dropdown
                       options={["0", "1000"]}
-                      onSelect={(value) =>
+                      onSelect={(value: string | number) =>
                         handleFieldChange(enemy, "ratingReduced", value)
                       }
                       defaultValue={
@@ -168,7 +168,7 @@ const BannedEnemiesTable = ({ players }: Props) => {
                   <td className="px-6 py-4">
                     <Dropdown
                       options={["0.5", "2", "24", "168"]}
-                      onSelect={(value) =>
+                      onSelect={(value: string | number) =>
                         handleFieldChange(enemy, "banDuration", value)
                       }
                       defaultValue={localState[enemy]?.banDuration || "Select"}
