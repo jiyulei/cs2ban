@@ -6,6 +6,7 @@ import { fetchLeetifyGames } from "../../utils/fetchLeetifyGames";
 import { ADMINS_STEAMID } from "../../utils/constants";
 import BannedEnemiesTable from "../../components/BannedEnemiesTable";
 import BannedTeammateTable from "../../components/BannedTeammateTable";
+import Layout from "../../components/Layout";
 
 const AdminDetailsPage = () => {
   const router = useRouter();
@@ -216,137 +217,139 @@ const AdminDetailsPage = () => {
   }, [bannedEnemies]);
 
   return (
-    <div className="p-6 bg-gray-200 min-h-screen">
-      {/* Loading / Error  */}
-      {loading && <p className="text-center text-blue-500">Loading...</p>}
-      {error && <p className="text-center text-red-500">{error}</p>}
+    <Layout>
+      <div className="p-6 bg-gray-200 min-h-screen">
+        {/* Loading / Error  */}
+        {loading && <p className="text-center text-blue-500">Loading...</p>}
+        {error && <p className="text-center text-red-500">{error}</p>}
 
-      <h1 className="text-2xl font-bold mb-6 text-center">Admin: {name}</h1>
-      <p className="text-center text-gray-500 mb-8">SteamID: {steamid}</p>
+        <h1 className="text-2xl font-bold mb-6 text-center">Admin: {name}</h1>
+        <p className="text-center text-gray-500 mb-8">SteamID: {steamid}</p>
 
-      <div>
-        <div className="flex justify-center mb-6">
-          <button
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-            onClick={handleFetchAndCompareGames}
-          >
-            Get Recent Games
-          </button>
+        <div>
+          <div className="flex justify-center mb-6">
+            <button
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+              onClick={handleFetchAndCompareGames}
+            >
+              Get Recent Games
+            </button>
+          </div>
         </div>
-      </div>
 
-      {/* Tabs */}
-      <div className="max-w-4xl mx-auto bg-white shadow rounded-lg p-6">
-        <div className="flex justify-center border-b border-gray-200 ">
-          <nav className="flex space-x-4" aria-label="Tabs">
+        {/* Tabs */}
+        <div className="max-w-4xl mx-auto bg-white shadow rounded-lg p-6">
+          <div className="flex justify-center border-b border-gray-200 ">
+            <nav className="flex space-x-4" aria-label="Tabs">
+              <button
+                className={`text-sm font-medium px-4 py-2 border-b-2 ${
+                  activeTab === "recentGames"
+                    ? "border-blue-500 text-blue-600"
+                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                }`}
+                onClick={() => setActiveTab("recentGames")}
+              >
+                Recent Games
+              </button>
+              <button
+                className={`text-sm font-medium px-4 py-2 border-b-2 ${
+                  activeTab === "bannedTeammates"
+                    ? "border-blue-500 text-blue-600"
+                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                }`}
+                onClick={() => setActiveTab("bannedTeammates")}
+              >
+                Banned Teammates
+              </button>
+            </nav>
+
             <button
               className={`text-sm font-medium px-4 py-2 border-b-2 ${
-                activeTab === "recentGames"
+                activeTab === "bannedEnemies"
                   ? "border-blue-500 text-blue-600"
                   : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
               }`}
-              onClick={() => setActiveTab("recentGames")}
+              onClick={() => setActiveTab("bannedEnemies")}
             >
-              Recent Games
+              Banned Enemies
             </button>
-            <button
-              className={`text-sm font-medium px-4 py-2 border-b-2 ${
-                activeTab === "bannedTeammates"
-                  ? "border-blue-500 text-blue-600"
-                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-              }`}
-              onClick={() => setActiveTab("bannedTeammates")}
-            >
-              Banned Teammates
-            </button>
-          </nav>
+          </div>
 
-          <button
-            className={`text-sm font-medium px-4 py-2 border-b-2 ${
-              activeTab === "bannedEnemies"
-                ? "border-blue-500 text-blue-600"
-                : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-            }`}
-            onClick={() => setActiveTab("bannedEnemies")}
-          >
-            Banned Enemies
-          </button>
-        </div>
-
-        {activeTab === "recentGames" && newGames && newGames.length > 0 && (
-          <table className="min-w-full divide-y divide-gray-200 bg-white shadow-md rounded-lg mt-6">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Map Name
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Match Result
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  K / D
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Game Finished At
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Get Banned Players
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {newGames.map((game, index) => (
-                <tr key={index}>
-                  <td className="px-6 py-4">{game.mapName}</td>
-                  <td className="px-6 py-4">{game.matchResult}</td>
-                  <td className="px-3 py-4">
-                    {game.kills} / {game.deaths}
-                  </td>
-                  <td className="px-6 py-4">
-                    {new Date(game.gameFinishedAt).toLocaleString()}
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex space-x-2">
-                      <button
-                        className={`px-4 py-2 rounded ${
-                          loading
-                            ? "bg-gray-500 text-white cursor-not-allowed"
-                            : "bg-green-500 text-white hover:bg-green-600"
-                        }`}
-                        onClick={() => handleClickTeammates(game)}
-                        disabled={loading}
-                      >
-                        {loading ? "Loading..." : "Teammates"}
-                      </button>
-
-                      <button
-                        className={`px-4 py-2 rounded ${
-                          loading
-                            ? "bg-gray-500 text-white cursor-not-allowed"
-                            : "bg-red-500 text-white hover:bg-red-600"
-                        }`}
-                        onClick={() => handleClickEnemies(game)}
-                        disabled={loading}
-                      >
-                        {loading ? "Loading..." : "Enemies"}
-                      </button>
-                    </div>
-                  </td>
+          {activeTab === "recentGames" && newGames && newGames.length > 0 && (
+            <table className="min-w-full divide-y divide-gray-200 bg-white shadow-md rounded-lg mt-6">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    Map Name
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    Match Result
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    K / D
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    Game Finished At
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    Get Banned Players
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {newGames.map((game, index) => (
+                  <tr key={index}>
+                    <td className="px-6 py-4">{game.mapName}</td>
+                    <td className="px-6 py-4">{game.matchResult}</td>
+                    <td className="px-3 py-4">
+                      {game.kills} / {game.deaths}
+                    </td>
+                    <td className="px-6 py-4">
+                      {new Date(game.gameFinishedAt).toLocaleString()}
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex space-x-2">
+                        <button
+                          className={`px-4 py-2 rounded ${
+                            loading
+                              ? "bg-gray-500 text-white cursor-not-allowed"
+                              : "bg-green-500 text-white hover:bg-green-600"
+                          }`}
+                          onClick={() => handleClickTeammates(game)}
+                          disabled={loading}
+                        >
+                          {loading ? "Loading..." : "Teammates"}
+                        </button>
 
-        {activeTab === "bannedTeammates" && bannedTeammates.length > 0 && (
-          <BannedTeammateTable players={bannedTeammates} />
-        )}
+                        <button
+                          className={`px-4 py-2 rounded ${
+                            loading
+                              ? "bg-gray-500 text-white cursor-not-allowed"
+                              : "bg-red-500 text-white hover:bg-red-600"
+                          }`}
+                          onClick={() => handleClickEnemies(game)}
+                          disabled={loading}
+                        >
+                          {loading ? "Loading..." : "Enemies"}
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
 
-        {activeTab === "bannedEnemies" && bannedEnemies.length > 0 && (
-          <BannedEnemiesTable players={bannedEnemies} />
-        )}
+          {activeTab === "bannedTeammates" && bannedTeammates.length > 0 && (
+            <BannedTeammateTable players={bannedTeammates} />
+          )}
+
+          {activeTab === "bannedEnemies" && bannedEnemies.length > 0 && (
+            <BannedEnemiesTable players={bannedEnemies} />
+          )}
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
