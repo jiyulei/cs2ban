@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { fetchRecentGames } from "../../utils/fetchLatestGame";
-import { fetchBannedPlayers } from "../../utils/fetchBannedPlayers";
 import { fetchLeetifyGames } from "../../utils/fetchLeetifyGames";
 import { ADMINS_STEAMID } from "../../utils/constants";
 import BannedEnemiesTable from "../../components/BannedEnemiesTable";
@@ -209,7 +208,7 @@ const AdminDetailsPage = () => {
         setError("Failed to retrieve or compare game data.");
       }
     } catch (error) {
-      setError("An error occurred while fetching or comparing game data.");
+      setError(`An error occurred while fetching or comparing game data. ${error}`);
     } finally {
       setLoading(false);
     }

@@ -55,7 +55,6 @@ const AdminListPage = () => {
                 height={96}
                 className="rounded-full shadow-md"
               />
-              ;
               <h3 className="mt-4 text-sm font-medium text-gray-700">
                 {admin.personaname}
               </h3>
