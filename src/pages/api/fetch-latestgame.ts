@@ -1,10 +1,43 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "../../utils/mongodb";
 
+type GameData = {
+  _id: string;
+  enemyTeamSteam64Ids: string[];
+  isCompletedLongMatch: boolean;
+  ownTeamSteam64Ids: string[];
+  ownTeamTotalLeetifyRatingRounds: {
+    [steamid: string]: number;
+  };
+  ownTeamTotalLeetifyRatings: {
+    [steamid: string]: number;
+  };
+  ctLeetifyRatingRounds: number;
+  leetifyRating: number;
+  dataSource: string;
+  elo: number | null;
+  gameFinishedAt: string;
+  gameId: string;
+  isCs2: boolean;
+  mapName: string;
+  matchResult: string;
+  rankType: number;
+  scores: Array<{
+    leetifyRating: number;
+    ctLeetifyRatingRounds: number;
+  }>;
+  skillLevel: number;
+  kills: number;
+  deaths: number;
+  hasBannedPlayer: boolean;
+  partySize: number;
+  steamid: string;
+};
+
 type Data = {
   message: string;
   success: boolean;
-  gameData?: any;
+  gameData?: GameData;
   error?: string;
 };
 
@@ -46,7 +79,7 @@ export default async function handler(
         success: true,
         gameData,
       });
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error fetching game data:", error.message);
       res.status(500).json({
         message: "Internal server error",
