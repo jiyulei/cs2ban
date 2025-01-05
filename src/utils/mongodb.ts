@@ -12,12 +12,12 @@ let client: MongoClient;
 let clientPromise: Promise<MongoClient>;
 
 if (process.env.NODE_ENV === "development") {
-  // In development, use a global variable to preserve the client across hot reloads
-  if (!(global as any)._mongoClientPromise) {
+  //In development, use a global variable to preserve the client across hot reloads
+  if (!global._mongoClientPromise) {
     client = new MongoClient(uri);
-    (global as any)._mongoClientPromise = client.connect();
+    global._mongoClientPromise = client.connect();
   }
-  clientPromise = (global as any)._mongoClientPromise;
+  clientPromise = global._mongoClientPromise;
 } else {
   // In production, always create a new client
   client = new MongoClient(uri);

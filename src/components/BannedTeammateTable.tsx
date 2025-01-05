@@ -2,32 +2,54 @@ import React, { useState, useEffect } from "react";
 import Dropdown from "./Dropdown";
 import { getSteamUserInfo } from "../utils/getSteamUserInfo";
 import { addBanlist } from "../utils/addBanlist";
+import type { Teammates } from "../types/types";
 
-const BannedTeammateTable = ({ players }) => {
+type Props = {
+  players: Teammates[];
+};
+
+type PlayerInfo = {
+  steamid: string;
+  personaname?: string;
+  avatar?: string;
+  avatarfull?: string;
+  avatarmedium?: string;
+  profileurl?: string;
+};
+
+const BannedTeammateTable = ({ players }: Props) => {
   const [successMessage, setSuccessMessage] = useState("");
 
-  const [localState, setLocalState] = useState(
+  const [localState, setLocalState] = useState<
+    Record<
+      string,
+      { banReason: string; ratingReduced: string; banDuration: string }
+    >
+  >(
     players.reduce((acc, entry) => {
       entry.teammates.forEach((teammate) => {
         acc[teammate] = { banReason: "", ratingReduced: "", banDuration: "" };
       });
       return acc;
-    }, {})
+    }, {} as Record<string, { banReason: string; ratingReduced: string; banDuration: string }>)
   );
 
-  const [playerNames, setPlayerNames] = useState({});
+  const [playerNames, setPlayerNames] = useState<Record<string, string>>({});
 
   useEffect(() => {
     const steamIDs = [...new Set(players.flatMap((entry) => entry.teammates))];
     console.log("STEAMiDS", steamIDs);
 
     const fetchPlayerNames = async () => {
-      const playerInfo = await getSteamUserInfo(steamIDs);
+      const playerInfo: PlayerInfo[] = await getSteamUserInfo(steamIDs);
       if (playerInfo) {
-        const namesMap = playerInfo.reduce((acc, player) => {
-          acc[player.steamid] = player.personaname || "Unknown";
-          return acc;
-        }, {});
+        const namesMap = playerInfo.reduce<Record<string, string>>(
+          (acc, player) => {
+            acc[player.steamid] = player.personaname || "Unknown";
+            return acc;
+          },
+          {}
+        );
         setPlayerNames(namesMap);
       }
     };
