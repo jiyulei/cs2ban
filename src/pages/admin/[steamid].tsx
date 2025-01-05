@@ -17,6 +17,7 @@ const AdminDetailsPage = () => {
   const [newGames, setNewGames] = useState(null);
   const [bannedTeammates, setBannedTeammates] = useState([]);
   const [bannedEnemies, setBannedEnemies] = useState([]);
+  const [successMessage, setSuccessMessage] = useState("");
 
   const eloCheck = (gameId, games) => {
     const matchedIndex = games.findIndex(
@@ -110,6 +111,11 @@ const AdminDetailsPage = () => {
           });
         }
         setBannedTeammates(updatedTeammates);
+        setSuccessMessage(
+          "Boom! Another one bites the dust. Head over to the Banned Teammates tab for the juicy details!"
+        );
+      } else {
+        setSuccessMessage("No bans this round. Someone's having a lucky day!");
       }
     } catch (error) {
       console.error("Error fetching teammates:", error);
@@ -165,6 +171,11 @@ const AdminDetailsPage = () => {
         }
 
         setBannedEnemies(updatedEnemies);
+        setSuccessMessage(
+          "Boom! Another one bites the dust. Head over to the Banned Enemies tab for the juicy details!"
+        );
+      } else {
+        setSuccessMessage("No bans this round. Someone's having a lucky day!");
       }
     } catch (error) {
       console.error("Error fetching enemies:", error);
@@ -216,12 +227,27 @@ const AdminDetailsPage = () => {
     console.log("state bannedEnemies", bannedEnemies);
   }, [bannedEnemies]);
 
+  useEffect(() => {
+    if (successMessage) {
+      const timeout = setTimeout(() => {
+        setSuccessMessage("");
+      }, 5000);
+      return () => clearTimeout(timeout);
+    }
+  }, [successMessage]);
+
   return (
     <Layout>
       <div className="p-6 bg-gray-200 min-h-screen">
         {/* Loading / Error  */}
         {loading && <p className="text-center text-blue-500">Loading...</p>}
         {error && <p className="text-center text-red-500">{error}</p>}
+
+        {successMessage && (
+          <div className="text-center bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
+            {successMessage}
+          </div>
+        )}
 
         <h1 className="text-2xl font-bold mb-6 text-center">Admin: {name}</h1>
         <p className="text-center text-gray-500 mb-8">SteamID: {steamid}</p>
