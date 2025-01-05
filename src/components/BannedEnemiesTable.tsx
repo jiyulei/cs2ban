@@ -42,41 +42,44 @@ const BannedEnemiesTable = ({ players }) => {
     }));
   };
 
-  const handleAddToDatabase = async (entry, enemy) => {
+  const handleAddToDatabase = async (entry, teammate) => {
     // Todo: update this function
-    const { banReason, ratingReduced, banDuration } = localState[enemy];
-    if (!banReason || !ratingReduced || !banDuration) {
+    const { banReason, ratingReduced, banDuration } = localState[teammate];
+    if (!banReason || ratingReduced === undefined || !banDuration) {
       console.error("All fields are required");
       return;
     }
 
     const newEntry = {
-      name: entry.name,
-      steamURL: entry.steamURL,
-      timesBanned: entry.timesBanned || 1,
+      name: playerNames[teammate] || "Unknown",
+      ratingReduced: parseInt(ratingReduced, 10),
       banReason,
-      ratingReduced,
-      banDuration,
       date: new Date().toISOString(),
+      banDuration: parseFloat(banDuration),
+      steamURL: `https://steamcommunity.com/profiles/${teammate}`,
+      timesBanned: entry.timesBanned || 1,
     };
 
-    try {
-      const response = await fetch("/api/addBanEntry", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newEntry),
-      });
+    // 打印 newEntry 到控制台以供调试
+    console.log("Formatted newEntry:", newEntry);
 
-      if (response.ok) {
-        console.log("Successfully added to database");
-      } else {
-        console.error("Failed to add to database");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
+    // try {
+    //   const response = await fetch("/api/addBanEntry", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(newEntry),
+    //   });
+
+    //   if (response.ok) {
+    //     console.log("Successfully added to database");
+    //   } else {
+    //     console.error("Failed to add to database");
+    //   }
+    // } catch (error) {
+    //   console.error("Error:", error);
+    // }
   };
 
   return (
@@ -138,7 +141,7 @@ const BannedEnemiesTable = ({ players }) => {
                   </td>
                   <td className="px-6 py-4">
                     <Dropdown
-                      options={[0, 1000]}
+                      options={["0", "1000"]}
                       onSelect={(value) =>
                         handleFieldChange(enemy, "ratingReduced", value)
                       }
@@ -149,13 +152,11 @@ const BannedEnemiesTable = ({ players }) => {
                   </td>
                   <td className="px-6 py-4">
                     <Dropdown
-                      options={[0.5, 2, 24, 168]}
+                      options={["0.5", "2", "24", "168"]}
                       onSelect={(value) =>
                         handleFieldChange(enemy, "banDuration", value)
                       }
-                      defaultValue={
-                        localState[enemy]?.banDuration || "Select"
-                      }
+                      defaultValue={localState[enemy]?.banDuration || "Select"}
                     />
                   </td>
                   <td className="px-6 py-4">

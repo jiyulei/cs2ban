@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Dropdown from "./Dropdown";
 import { getSteamUserInfo } from "../utils/getSteamUserInfo";
+import { addBanlist } from "../utils/addBanlist";
 
 const BannedTeammateTable = ({ players }) => {
   const [localState, setLocalState] = useState(
@@ -15,9 +16,7 @@ const BannedTeammateTable = ({ players }) => {
   const [playerNames, setPlayerNames] = useState({});
 
   useEffect(() => {
-    const steamIDs = [
-      ...new Set(players.flatMap((entry) => entry.teammates)),
-    ];
+    const steamIDs = [...new Set(players.flatMap((entry) => entry.teammates))];
     console.log("STEAMiDS", steamIDs);
 
     const fetchPlayerNames = async () => {
@@ -47,37 +46,27 @@ const BannedTeammateTable = ({ players }) => {
   const handleAddToDatabase = async (entry, teammate) => {
     // Todo: update this function
     const { banReason, ratingReduced, banDuration } = localState[teammate];
-    if (!banReason || !ratingReduced || !banDuration) {
+    if (!banReason || ratingReduced === undefined || !banDuration) {
       console.error("All fields are required");
       return;
     }
 
     const newEntry = {
-      name: entry.name,
-      steamURL: entry.steamURL,
-      timesBanned: entry.timesBanned || 1,
+      name: playerNames[teammate] || "Unknown",
+      ratingReduced: parseInt(ratingReduced, 10),
       banReason,
-      ratingReduced,
-      banDuration,
       date: new Date().toISOString(),
+      banDuration: parseFloat(banDuration),
+      steamURL: `https://steamcommunity.com/profiles/${teammate}`,
     };
 
-    try {
-      const response = await fetch("/api/addBanEntry", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newEntry),
-      });
+    console.log("Formatted newEntry:", newEntry);
+    const result = await addBanlist(newEntry);
 
-      if (response.ok) {
-        console.log("Successfully added to database");
-      } else {
-        console.error("Failed to add to database");
-      }
-    } catch (error) {
-      console.error("Error:", error);
+    if (result && result.success) {
+      console.log("Successfully added to banlist");
+    } else {
+      console.error("Failed to add to banlist");
     }
   };
 
@@ -141,7 +130,7 @@ const BannedTeammateTable = ({ players }) => {
                   </td>
                   <td className="px-6 py-4">
                     <Dropdown
-                      options={[0, 1000]}
+                      options={["0", "1000"]}
                       onSelect={(value) =>
                         handleFieldChange(teammate, "ratingReduced", value)
                       }
@@ -152,7 +141,7 @@ const BannedTeammateTable = ({ players }) => {
                   </td>
                   <td className="px-6 py-4">
                     <Dropdown
-                      options={[0.5, 2, 24, 168]}
+                      options={["0.5", "2", "24", "168"]}
                       onSelect={(value) =>
                         handleFieldChange(teammate, "banDuration", value)
                       }

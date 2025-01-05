@@ -99,7 +99,7 @@ const getIconPath = (banReason) => {
                 </td>
 
                 <td className="pl-4 py-2">
-                  {new Date(ban.date).toLocaleDateString()}
+                  {ban.date}
                 </td>
                 <td className="px-12 py-2 hidden lg:table-cell">
                   {ban.ratingReduced}
