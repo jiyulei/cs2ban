@@ -59,12 +59,10 @@ export default async function handler(
       // Connect to MongoDB
       const client = await clientPromise;
       const db = client.db("cs2");
-      const collection = db.collection("adminsLatestGame");
+      const collection = db.collection<GameData>("adminsLatestGame"); // Strongly type the collection
 
       // Query the collection for the matching steamid
       const gameData = await collection.findOne({ steamid });
- 
-
 
       if (!gameData) {
         return res.status(404).json({
@@ -80,12 +78,21 @@ export default async function handler(
         gameData,
       });
     } catch (error) {
-      console.error("Error fetching game data:", error.message);
-      res.status(500).json({
-        message: "Internal server error",
-        success: false,
-        error: error.message,
-      });
+      if (error instanceof Error) {
+        console.error("Error fetching game data:", error.message);
+        res.status(500).json({
+          message: "Internal server error",
+          success: false,
+          error: error.message,
+        });
+      } else {
+        console.error("Unknown error:", error);
+        res.status(500).json({
+          message: "Internal server error",
+          success: false,
+          error: "Unknown error occurred",
+        });
+      }
     }
   } else {
     res.setHeader("Allow", ["GET"]);
