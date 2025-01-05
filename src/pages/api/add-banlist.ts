@@ -12,8 +12,15 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     try {
-      const { name, ratingReduced, banReason, date, banDuration, steamURL, gameId } =
-        req.body;
+      const {
+        name,
+        ratingReduced,
+        banReason,
+        date,
+        banDuration,
+        steamURL,
+        gameId,
+      } = req.body;
 
       console.log("Request body:", req.body);
 
@@ -42,6 +49,15 @@ export default async function handler(
       const db = client.db("cs2");
       const collection = db.collection("banlist");
 
+      // 确保 `date` 字段为 Date 类型
+      const parsedDate = new Date(date);
+
+      if (isNaN(parsedDate.getTime())) {
+        return res
+          .status(400)
+          .json({ message: "Invalid date format", success: false });
+      }
+
       const existingEntries = await collection.find({ steamURL }).toArray();
 
       const totalTimesBanned = existingEntries.length + 1;
@@ -50,7 +66,7 @@ export default async function handler(
         name,
         ratingReduced,
         banReason,
-        date,
+        date: parsedDate,
         banDuration,
         steamURL,
         gameId,

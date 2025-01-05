@@ -11,8 +11,14 @@ if (!uri) {
 let client: MongoClient;
 let clientPromise: Promise<MongoClient>;
 
+// 扩展 Node.js 的全局类型
+declare global {
+  // eslint-disable-next-line no-var
+  var _mongoClientPromise: Promise<MongoClient> | undefined;
+}
+
 if (process.env.NODE_ENV === "development") {
-  //In development, use a global variable to preserve the client across hot reloads
+  // In development, use a global variable to preserve the client across hot reloads
   if (!global._mongoClientPromise) {
     client = new MongoClient(uri);
     global._mongoClientPromise = client.connect();

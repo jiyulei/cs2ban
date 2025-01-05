@@ -24,14 +24,25 @@ export default async function handler(
   if (req.method === "GET") {
     try {
       const client = await clientPromise;
-      const db = client.db("cs2"); 
-      const collection = db.collection("banlist"); 
+      const db = client.db("cs2");
+      const collection = db.collection("banlist");
 
-      // Fetch the banlist data
-      const banlist = await collection
-        .find({}, { projection: { _id: 0 } }) 
-        .sort({ date: -1 }) // Sort by `date` descending
+      // Fetch the banlist data and type cast
+      const rawBanlist = await collection
+        .find({}, { projection: { _id: 0 } }) // Exclude `_id`
+        .sort({ date: -1 })
         .toArray();
+
+      // Map the raw data to BanEntry type
+      const banlist: BanEntry[] = rawBanlist.map((item) => ({
+        name: item.name,
+        ratingReduced: item.ratingReduced,
+        banReason: item.banReason,
+        date: item.date,
+        banDuration: item.banDuration,
+        steamURL: item.steamURL,
+        timesBanned: item.timesBanned,
+      }));
 
       res.status(200).json({
         message: "Banlist fetched successfully",

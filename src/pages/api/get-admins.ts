@@ -30,14 +30,26 @@ export default async function handler(
 
       // Fetch the admins data
       const admins = await collection
-        .find({}, { projection: { _id: 0 } }) // Exclude `_id` field if not needed
+        .find({}, { projection: { _id: 0 } }) // Exclude `_id` field
         .sort({ personaname: 1 }) // Sort alphabetically by `personaname`
         .toArray();
+
+      // Map MongoDB documents to AdminEntry[]
+      const mappedAdmins: AdminEntry[] = admins.map((admin) => ({
+        steamid: admin.steamid,
+        personaname: admin.personaname,
+        profileurl: admin.profileurl,
+        avatar: admin.avatar,
+        avatarmedium: admin.avatarmedium,
+        avatarfull: admin.avatarfull,
+        lastlogoff: admin.lastlogoff,
+        personastate: admin.personastate,
+      }));
 
       res.status(200).json({
         message: "Admins fetched successfully",
         success: true,
-        admins,
+        admins: mappedAdmins,
       });
     } catch (error) {
       console.error("Error fetching admins:", error);
