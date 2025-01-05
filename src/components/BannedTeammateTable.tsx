@@ -44,7 +44,6 @@ const BannedTeammateTable = ({ players }) => {
   };
 
   const handleAddToDatabase = async (entry, teammate) => {
-    // Todo: update this function
     const { banReason, ratingReduced, banDuration } = localState[teammate];
     if (!banReason || ratingReduced === undefined || !banDuration) {
       console.error("All fields are required");
@@ -58,9 +57,9 @@ const BannedTeammateTable = ({ players }) => {
       date: new Date().toISOString(),
       banDuration: parseFloat(banDuration),
       steamURL: `https://steamcommunity.com/profiles/${teammate}`,
+      gameId: entry.gameId
     };
 
-    console.log("Formatted newEntry:", newEntry);
     const result = await addBanlist(newEntry);
 
     if (result && result.success) {

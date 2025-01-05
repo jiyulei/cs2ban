@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Dropdown from "./Dropdown";
 import { getSteamUserInfo } from "../utils/getSteamUserInfo";
+import { addBanlist } from "../utils/addBanlist";
 
 const BannedEnemiesTable = ({ players }) => {
   const [localState, setLocalState] = useState(
@@ -42,44 +43,30 @@ const BannedEnemiesTable = ({ players }) => {
     }));
   };
 
-  const handleAddToDatabase = async (entry, teammate) => {
-    // Todo: update this function
-    const { banReason, ratingReduced, banDuration } = localState[teammate];
+  const handleAddToDatabase = async (entry, enemy) => {
+    const { banReason, ratingReduced, banDuration } = localState[enemy];
     if (!banReason || ratingReduced === undefined || !banDuration) {
       console.error("All fields are required");
       return;
     }
 
     const newEntry = {
-      name: playerNames[teammate] || "Unknown",
+      name: playerNames[enemy] || "Unknown",
       ratingReduced: parseInt(ratingReduced, 10),
       banReason,
       date: new Date().toISOString(),
       banDuration: parseFloat(banDuration),
-      steamURL: `https://steamcommunity.com/profiles/${teammate}`,
-      timesBanned: entry.timesBanned || 1,
+      steamURL: `https://steamcommunity.com/profiles/${enemy}`,
+      gameId: entry.gameId,
     };
 
-    // 打印 newEntry 到控制台以供调试
-    console.log("Formatted newEntry:", newEntry);
+    const result = await addBanlist(newEntry);
 
-    // try {
-    //   const response = await fetch("/api/addBanEntry", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(newEntry),
-    //   });
-
-    //   if (response.ok) {
-    //     console.log("Successfully added to database");
-    //   } else {
-    //     console.error("Failed to add to database");
-    //   }
-    // } catch (error) {
-    //   console.error("Error:", error);
-    // }
+    if (result && result.success) {
+      console.log("Successfully added to banlist");
+    } else {
+      console.error("Failed to add to banlist");
+    }
   };
 
   return (
