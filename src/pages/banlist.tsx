@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchBanlist } from "../utils/fetchBanlist";
 import Layout from "../components/Layout";
+import Image from "next/image";
 
 const BanlistPage = () => {
   const [banlist, setBanlist] = useState([]);
@@ -129,10 +130,12 @@ const BanlistPage = () => {
                   <td className="px-8 py-2 hidden sm:table-cell">
                     <div className="flex items-center">
                       <span>{ban.banReason}</span>
-                      <img
+                      <Image
                         src={getIconPath(ban.banReason)}
                         alt={`${ban.banReason} icon`}
-                        className="w-5 h-5 ml-2"
+                        width={20}
+                        height={20}
+                        className="ml-2"
                       />
                     </div>
                   </td>

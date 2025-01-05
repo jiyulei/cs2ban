@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import Image from "next/image";
 
 export default function Navbar() {
   const router = useRouter();
@@ -11,10 +12,12 @@ export default function Navbar() {
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex shrink-0 items-center">
-              <img
-                className="h-10 w-auto"
+              <Image
                 src="/icons/gameover.png"
                 alt="New Icon"
+                width={40}
+                height={40} 
+                priority
               />
             </div>
             {/* Tabs */}

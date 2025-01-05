@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { fetchAdmins } from "../utils/fetchAdmins";
 import { useRouter } from "next/router";
 import Layout from "../components/Layout";
+import Image from "next/image";
 
 const AdminListPage = () => {
   const [admins, setAdmins] = useState([]);
@@ -47,11 +48,14 @@ const AdminListPage = () => {
                 )
               }
             >
-              <img
+              <Image
                 src={admin.avatarfull}
                 alt={`${admin.personaname} avatar`}
-                className="w-24 h-24 rounded-full shadow-md"
+                width={96}
+                height={96}
+                className="rounded-full shadow-md"
               />
+              ;
               <h3 className="mt-4 text-sm font-medium text-gray-700">
                 {admin.personaname}
               </h3>
