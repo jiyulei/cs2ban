@@ -26,6 +26,7 @@ if (process.env.NODE_ENV === "development") {
   clientPromise = global._mongoClientPromise;
 } else {
   // In production, always create a new client
+  console.log("env.MONGON_URI: ", process.env.MONGO_URI);
   client = new MongoClient(uri);
   clientPromise = client.connect();
 }
