@@ -30,4 +30,8 @@ if (process.env.NODE_ENV === "development") {
   clientPromise = client.connect();
 }
 
+clientPromise
+  .then(() => console.log("MongoDB connected successfully"))
+  .catch((err) => console.error("MongoDB connection error:", err));
+
 export default clientPromise;
