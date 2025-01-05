@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Dropdown from "./Dropdown";
+import { getSteamUserInfo } from "../utils/getSteamUserInfo";
 
 const BannedPlayerTable = ({ players }) => {
   const [localState, setLocalState] = useState(
@@ -10,6 +11,31 @@ const BannedPlayerTable = ({ players }) => {
       return acc;
     }, {})
   );
+
+ const [playerNames, setPlayerNames] = useState({});
+
+ useEffect(() => {
+   // 提取所有 Steam IDs
+   const steamIDs = [
+     ...new Set(players.flatMap((entry) => entry.teammates)), // 去重
+   ];
+   console.log("STEAMiDS", steamIDs)
+
+   const fetchPlayerNames = async () => {
+     const playerInfo = await getSteamUserInfo(steamIDs);
+     if (playerInfo) {
+       // 创建 steamid 和 personaname 的映射
+       const namesMap = playerInfo.reduce((acc, player) => {
+         acc[player.steamid] = player.personaname || "Unknown"; // 默认名字为 Unknown
+         return acc;
+       }, {});
+       setPlayerNames(namesMap);
+     }
+   };
+
+   fetchPlayerNames();
+ }, [players]);
+
 
   const handleFieldChange = (teammate, field, value) => {
     setLocalState((prev) => ({
@@ -93,10 +119,22 @@ const BannedPlayerTable = ({ players }) => {
               entry.teammates.map((teammate) => (
                 <tr key={teammate}>
                   <td className="px-6 py-4">{entry.gameId}</td>
-                  <td className="px-6 py-4">{teammate}</td>
+                  <td className="px-6 py-4" title={teammate}>
+                    {playerNames[teammate] || teammate}
+                  </td>
                   <td className="px-6 py-4">
                     <Dropdown
-                      options={["Gun", "Molotov", "Knife", "Team Rage", "Grenade", "Zeus", "Suicide", "AFK", "VAC"]}
+                      options={[
+                        "Gun",
+                        "Molotov",
+                        "Knife",
+                        "Team Rage",
+                        "Grenade",
+                        "Zeus",
+                        "Suicide",
+                        "AFK",
+                        "VAC",
+                      ]}
                       onSelect={(value) =>
                         handleFieldChange(teammate, "banReason", value)
                       }
