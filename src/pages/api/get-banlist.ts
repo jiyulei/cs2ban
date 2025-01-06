@@ -9,6 +9,7 @@ type BanEntry = {
   banDuration: number;
   steamURL: string;
   timesBanned: number;
+  gameId?: string;
 };
 
 type Data = {
@@ -42,6 +43,7 @@ export default async function handler(
         banDuration: item.banDuration,
         steamURL: item.steamURL,
         timesBanned: item.timesBanned,
+        gameId: item.gameId
       }));
 
       res.status(200).json({

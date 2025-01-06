@@ -3,6 +3,7 @@ import Dropdown from "./Dropdown";
 import { getSteamUserInfo } from "../utils/getSteamUserInfo";
 import { addBanlist } from "../utils/addBanlist";
 import type { Teammates } from "../types/types";
+import { fetchBanlist } from "../utils/fetchBanlist";
 
 type Props = {
   players: Teammates[];
@@ -23,6 +24,23 @@ type Entry = {
   teammates: string[];
 };
 
+type BanEntry = {
+  name: string;
+  ratingReduced: number;
+  banReason: string;
+  date: string;
+  banDuration: number;
+  steamURL: string;
+  timesBanned: number;
+  gameId?: string; // gameId 可选
+};
+
+type TeammateEntry = {
+  gameId: string;
+  date: string;
+  teammates: string[]; // 每个队友的 Steam ID
+};
+
 const BannedTeammateTable = ({ players }: Props) => {
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -41,6 +59,50 @@ const BannedTeammateTable = ({ players }: Props) => {
   );
 
   const [playerNames, setPlayerNames] = useState<Record<string, string>>({});
+  const [filteredPlayerNames, setFilteredPlayers] = useState<TeammateEntry[]>(
+    []
+  );
+
+  const [banlist, setBanlist] = useState<BanEntry[]>([]);
+
+
+  useEffect(() => {
+    const fetchBanlistAndFilter = async () => {
+      try {
+        // 假设你有一个 API 方法 `fetchBanlist`，用来获取数据库中的 banlist
+        const data = await fetchBanlist();
+
+        const filteredPlayers: TeammateEntry[] = players.map((entry) => ({
+          ...entry,
+          teammates: entry.teammates.filter(
+            (teammate) =>
+              !data.banlist.some(
+                (banEntry: BanEntry) =>
+                  banEntry.gameId && // 确保 banEntry 包含 gameId
+                  banEntry.gameId === entry.gameId && // 比较 gameId
+                  banEntry.steamURL ===
+                    `https://steamcommunity.com/profiles/${teammate}` // 比较 steamURL
+              )
+          ),
+        }));
+
+        // 过滤掉没有 teammates 的 entry
+        const nonEmptyEntries = filteredPlayers.filter(
+          (entry) => entry.teammates.length > 0
+        );
+
+        setFilteredPlayers(nonEmptyEntries);
+      } catch (error) {
+        console.error("Error fetching banlist or filtering players:", error);
+      }
+    };
+
+    fetchBanlistAndFilter();
+  }, [players]);
+
+  useEffect(() => {
+    console.log("filtered Players", filteredPlayerNames);
+  });
 
   useEffect(() => {
     const steamIDs = [...new Set(players.flatMap((entry) => entry.teammates))];
@@ -140,7 +202,7 @@ const BannedTeammateTable = ({ players }: Props) => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {players.map((entry) =>
+            {filteredPlayerNames.map((entry) =>
               entry.teammates.map((teammate) => (
                 <tr key={teammate}>
                   <td className="px-6 py-4">{entry.gameId}</td>
