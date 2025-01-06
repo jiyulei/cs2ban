@@ -63,9 +63,6 @@ const BannedTeammateTable = ({ players }: Props) => {
     []
   );
 
-  const [banlist, setBanlist] = useState<BanEntry[]>([]);
-
-
   useEffect(() => {
     const fetchBanlistAndFilter = async () => {
       try {
@@ -162,6 +159,24 @@ const BannedTeammateTable = ({ players }: Props) => {
       console.log("Successfully added to banlist");
       setSuccessMessage(
         `${playerNames[teammate]} has been successfully added to the banlist!`
+      );
+
+      setFilteredPlayers(
+        (prev) =>
+          prev
+            .map((playerEntry) => ({
+              ...playerEntry,
+              teammates: playerEntry.teammates.filter(
+                (t) =>
+                  !(
+                    (
+                      t === teammate && // match teammate
+                      playerEntry.gameId === entry.gameId
+                    ) // match gameId
+                  )
+              ),
+            }))
+            .filter((entry) => entry.teammates.length > 0)
       );
     } else {
       console.error("Failed to add to banlist");
