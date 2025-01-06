@@ -10,22 +10,3 @@ Admin: padL                          SteamID: 76561199162068315
 Admin: purple haze                   SteamID: 76561199702087214
 Admin: roblox gamer                  SteamID: 76561199013102391
 Admin: weeeee                        SteamID: 76561199697454772
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

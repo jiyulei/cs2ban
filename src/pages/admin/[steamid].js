@@ -51,7 +51,9 @@ const AdminDetailsPage = () => {
       return [];
     }
 
-    const index = leetifyGames.findIndex((el) => el.gameId.slice(-6) === targetGameId);
+    const index = leetifyGames.findIndex(
+      (el) => el.gameId.slice(-6) === targetGameId
+    );
 
     if (index === -1) {
       return [];
@@ -183,6 +185,7 @@ const AdminDetailsPage = () => {
   const handleFetchAndCompareGames = async () => {
     setLoading(true);
     setError(null);
+    setSuccessMessage("");
     try {
       const [recentGamesResponse, leetifyGamesResponse] = await Promise.all([
         fetchRecentGames(steamid),
@@ -200,12 +203,18 @@ const AdminDetailsPage = () => {
           leetifyGamesResponse.games
         );
 
+        if (comparisonResult.length === 0) {
+          setSuccessMessage("No new games found for this admin recently.");
+        }
+
         setNewGames(comparisonResult);
       } else {
         setError("Failed to retrieve or compare game data.");
       }
     } catch (error) {
-      setError(`An error occurred while fetching or comparing game data. ${error}`);
+      setError(
+        `An error occurred while fetching or comparing game data. ${error}`
+      );
     } finally {
       setLoading(false);
     }
@@ -240,7 +249,7 @@ const AdminDetailsPage = () => {
         {error && <p className="text-center text-red-500">{error}</p>}
 
         {successMessage && (
-          <div className="text-center bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
+          <div className="text-center bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded mb-2">
             {successMessage}
           </div>
         )}
