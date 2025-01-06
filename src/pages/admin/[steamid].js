@@ -45,21 +45,18 @@ const AdminDetailsPage = () => {
   };
 
   const getNewGames = (recentGames, leetifyGames) => {
-    // Todo: match only last 6 digits
-    // eg: recentGames.gameId.slice(-6)
-    const targetGameId = recentGames.gameId;
+    const targetGameId = recentGames.gameId.slice(-6);
     console.log("targetgameid--->", targetGameId);
     if (!targetGameId) {
       return [];
     }
 
-    const index = leetifyGames.findIndex((el) => el.gameId === targetGameId);
+    const index = leetifyGames.findIndex((el) => el.gameId.slice(-6) === targetGameId);
 
     if (index === -1) {
       return [];
     }
-    // Todo: Change this to slice(0, index)
-    return leetifyGames.slice(0, index + 1);
+    return leetifyGames.slice(0, index);
   };
 
   const handleClickTeammates = async (game) => {
