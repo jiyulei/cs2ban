@@ -127,7 +127,7 @@ const BannedEnemiesTable = ({ players }: Props) => {
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-white divide-y divide-gray-200 text-black">
             {players.map((entry) =>
               entry.enemies.map((enemy) => (
                 <tr key={enemy}>

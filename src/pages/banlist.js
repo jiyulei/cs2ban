@@ -89,7 +89,7 @@ const BanlistPage = () => {
   return (
     <Layout>
       <div className="p-6 bg-gray-100 min-h-screen">
-        <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Banlist</h1>
+        <h1 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-black">Banlist</h1>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200 bg-white shadow-md rounded-lg">
             <thead className="bg-gray-50">
@@ -117,7 +117,7 @@ const BanlistPage = () => {
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white divide-y divide-gray-200 text-black">
               {displayedRows.map((ban, index) => (
                 <tr
                   key={index}

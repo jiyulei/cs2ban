@@ -216,7 +216,7 @@ const BannedTeammateTable = ({ players }: Props) => {
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-white divide-y divide-gray-200 text-black">
             {filteredPlayerNames.map((entry) =>
               entry.teammates.map((teammate) => (
                 <tr key={teammate}>

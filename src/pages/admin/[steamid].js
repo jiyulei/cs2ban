@@ -254,7 +254,7 @@ const AdminDetailsPage = () => {
           </div>
         )}
 
-        <h1 className="text-2xl font-bold mb-6 text-center">Admin: {name}</h1>
+        <h1 className="text-2xl font-bold mb-6 text-center text-black">Admin: {name}</h1>
         <p className="text-center text-gray-500 mb-8">SteamID: {steamid}</p>
 
         <div>
@@ -327,7 +327,7 @@ const AdminDetailsPage = () => {
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white divide-y divide-gray-200 text-black">
                 {newGames.map((game, index) => (
                   <tr key={index}>
                     <td className="px-6 py-4">{game.mapName}</td>
